@@ -16,10 +16,7 @@
       --muted: #6a7f94;
       --accent: #d73127;
       --white: #ffffff;
-      --navy: #07080a;
-      --ice: #edf5fb;
-      --mist: rgba(232, 237, 242, 0.7);
-      --cyan: #7fdcff;
+      --red: #ff0000;
     }
 
     * {
@@ -73,6 +70,27 @@
       position: relative;
     }
 
+    section.video-bg {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.15;
+    }
+
+    section.video-bg .container {
+      position: relative;
+      z-index: 1;
+    }
+
     .container {
       width: min(1200px, 100%);
       margin: 0 auto;
@@ -109,12 +127,21 @@
     }
 
     .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
       font-size: 0.8rem;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--white);
       white-space: nowrap;
+    }
+
+    .brand-logo {
+      height: 32px;
+      width: auto;
+      max-height: 100%;
     }
 
     .menu-toggle {
@@ -153,15 +180,16 @@
       font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--red);
     }
 
     .nav-links a {
+      color: var(--red);
       transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: var(--white);
     }
 
     #hero {
@@ -378,7 +406,7 @@
       font-size: clamp(2rem, 6vw, 4.4rem);
       line-height: 1.06;
       margin-bottom: 1.4rem;
-      color: var(--white);
+      color: var(--red);
     }
 
     .section-copy {
@@ -757,90 +785,6 @@
       text-align: center;
     }
 
-    #scrub-section {
-      position: relative;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(127,220,255,0.14), transparent 36%),
-        linear-gradient(180deg, rgba(7,8,10,0.96) 0%, rgba(15,19,24,1) 55%, rgba(7,8,10,1) 100%);
-      overflow: hidden;
-    }
-
-    #scrub-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(7,8,10,0.35) 0%, transparent 28%, transparent 72%, rgba(7,8,10,0.45) 100%),
-        radial-gradient(circle at 50% 35%, rgba(127,220,255,0.08), transparent 52%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    #scrub-video {
-      left: 0;
-      top: 0;
-      display: block;
-      background: var(--navy);
-    }
-
-    .scrub-overlay {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: clamp(1.2rem, 4vw, 3rem);
-      z-index: 2;
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .scrub-panel {
-      width: min(760px, calc(100% - 2rem));
-      padding: clamp(1.5rem, 4vw, 2.6rem);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 28px;
-      background: rgba(15,19,24,0.42);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
-      text-align: center;
-    }
-
-    .scrub-kicker {
-      margin-bottom: 0.9rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--mist);
-    }
-
-    .scrub-title {
-      font-family: Cormorant, serif;
-      font-size: clamp(2.3rem, 6vw, 5rem);
-      font-weight: 300;
-      line-height: 1;
-      color: var(--ice);
-      margin-bottom: 0.85rem;
-    }
-
-    .scrub-subline {
-      max-width: 42ch;
-      margin: 0 auto;
-      color: rgba(232,237,242,0.82);
-      font-size: 1rem;
-    }
-
-    @media (max-width: 767px) {
-      .scrub-panel {
-        width: min(100%, 28rem);
-        padding: 1.35rem 1.2rem;
-      }
-
-      .scrub-subline {
-        font-size: 0.95rem;
-      }
-    }
-
     .contact-sub {
       color: var(--muted);
       margin: 0 auto 1.8rem;
@@ -974,7 +918,10 @@
 <body>
   <nav id="site-nav">
     <div class="nav-inner">
-      <div class="brand">Dragonfly MFG.</div>
+      <div class="brand">
+        <img src="logo.png" alt="Dragonfly MFG Logo" class="brand-logo">
+        Dragonfly MFG.
+      </div>
       <input class="menu-toggle" type="checkbox" id="menu-toggle" aria-label="Toggle navigation">
       <label class="menu-icon" for="menu-toggle" aria-hidden="true"><span></span></label>
       <ul class="nav-links">
@@ -1053,7 +1000,10 @@
     </div>
   </section>
 
-  <section id="product" class="section-rule">
+  <section id="product" class="section-rule video-bg">
+    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
     <div class="container">
       <p class="label reveal">- The Product</p>
       <div class="product-grid">
@@ -1092,7 +1042,10 @@
     </div>
   </section>
 
-  <section id="printing" class="section-rule">
+  <section id="printing" class="section-rule video-bg">
+    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
     <div class="container">
       <p class="label reveal">- Print Methods</p>
       <div class="card-grid">
@@ -1130,7 +1083,10 @@
     </div>
   </section>
 
-  <section id="sizes" class="section-rule">
+  <section id="sizes" class="section-rule video-bg">
+    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
     <div class="container sizes-wrap">
       <p class="label reveal">- Sizes</p>
       <h2 class="section-title reveal" data-delay="100">Every format, fully yours.</h2>
@@ -1183,7 +1139,10 @@
     </div>
   </section>
 
-  <section id="contact" class="section-rule">
+  <section id="contact" class="section-rule video-bg">
+    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
     <div class="container">
       <h2 class="section-title reveal">Let's build something remarkable.</h2>
       <p class="contact-sub reveal" data-delay="100">Tell us your concept, timeline, and quantity. We will reply with practical guidance and a clear quotation.</p>
@@ -1206,19 +1165,6 @@
       </div>
     </div>
   </section>
-
-  <div id="scrub-section">
-    <video id="scrub-video" muted playsinline preload="auto" style="position: sticky; top: 0; width: 100%; height: 100vh; object-fit: cover;">
-      <source src="video3.mp4" type="video/mp4">
-    </video>
-    <div class="scrub-overlay" id="scrub-overlay">
-      <div class="scrub-panel reveal" data-delay="80">
-        <p class="scrub-kicker">Crafted motion</p>
-        <h2 class="scrub-title">Every Pour Tells Your Story</h2>
-        <p class="scrub-subline">Scroll through the sequence to watch the bottle and the brand come into focus, one frame at a time.</p>
-      </div>
-    </div>
-  </div>
 
   <footer>
     <div class="footer-inner">
@@ -1279,80 +1225,29 @@
       });
     });
 
-    const scrubSection = document.getElementById('scrub-section');
-    const scrubVideo = document.getElementById('scrub-video');
-    const scrubOverlay = document.getElementById('scrub-overlay');
-    const scrubMediaQuery = window.matchMedia('(max-width: 767px)');
+    // ===== VIDEO TRIMMING & LOOPING =====
+    const backgroundVideos = document.querySelectorAll('.video-background');
+    backgroundVideos.forEach((video) => {
+      const startTime = parseFloat(video.dataset.start);
+      const endTime = parseFloat(video.dataset.end);
+      const duration = endTime - startTime;
 
-    function updateScrubSectionHeight() {
-      if (!scrubVideo.duration || Number.isNaN(scrubVideo.duration)) {
-        return;
-      }
+      video.addEventListener('loadedmetadata', () => {
+        video.currentTime = startTime;
+        video.play();
+      });
 
-      if (scrubMediaQuery.matches) {
-        scrubSection.style.height = '100vh';
-        return;
-      }
+      video.addEventListener('timeupdate', () => {
+        if (video.currentTime >= endTime) {
+          video.currentTime = startTime;
+        }
+      });
 
-      scrubSection.style.height = `${scrubVideo.duration * 250}px`;
-    }
-
-    function updateScrubState() {
-      if (!scrubVideo.duration || Number.isNaN(scrubVideo.duration)) {
-        return;
-      }
-
-      if (scrubMediaQuery.matches) {
-        scrubOverlay.style.opacity = '1';
-        scrubOverlay.style.transform = 'translateY(0)';
-        scrubVideo.loop = true;
-        scrubVideo.autoplay = true;
-        scrubVideo.muted = true;
-        scrubVideo.playsInline = true;
-        scrubVideo.currentTime = 0;
-        scrubVideo.play().catch(() => {});
-        return;
-      }
-
-      scrubVideo.loop = false;
-      scrubVideo.autoplay = false;
-      scrubVideo.pause();
-
-      const scrubRect = scrubSection.getBoundingClientRect();
-      const progress = Math.min(
-        1,
-        Math.max(0, -scrubRect.top / (scrubSection.offsetHeight - window.innerHeight))
-      );
-
-      scrubVideo.currentTime = progress * scrubVideo.duration;
-
-      const overlayOpacity = progress < 0.3 ? 1 : Math.max(0, 1 - ((progress - 0.3) / 0.7));
-      scrubOverlay.style.opacity = String(overlayOpacity);
-      scrubOverlay.style.transform = `translateY(${(1 - overlayOpacity) * 18}px)`;
-    }
-
-    scrubVideo.addEventListener('loadedmetadata', () => {
-      updateScrubSectionHeight();
-      updateScrubState();
+      video.addEventListener('ended', () => {
+        video.currentTime = startTime;
+        video.play();
+      });
     });
-
-    window.addEventListener('scroll', updateScrubState, { passive: true });
-    window.addEventListener('resize', () => {
-      updateScrubSectionHeight();
-      updateScrubState();
-    }, { passive: true });
-
-    if (scrubMediaQuery.addEventListener) {
-      scrubMediaQuery.addEventListener('change', () => {
-        updateScrubSectionHeight();
-        updateScrubState();
-      });
-    } else if (scrubMediaQuery.addListener) {
-      scrubMediaQuery.addListener(() => {
-        updateScrubSectionHeight();
-        updateScrubState();
-      });
-    }
 
     // ===== VIDEO MODAL =====
     const videoModal = document.getElementById('videoModal');
