@@ -1257,30 +1257,74 @@
       }
     });
 
-    // Close mobile menu on link click
+    // Mobile navigation: robust open/close, outside-touch handling and scroll lock
     const navToggle = document.getElementById('nav-toggle');
     const navLinks = document.querySelectorAll('.nav-links a');
+    const siteNav = document.getElementById('site-nav');
 
+    // ensure closed on load
     navToggle.checked = false;
 
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        navToggle.checked = false;
-      });
-    });
+    // helper to lock page scroll while nav is open and preserve scroll position
+    let _savedScroll = 0;
+    function lockScroll() {
+      _savedScroll = window.scrollY || document.documentElement.scrollTop;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${_savedScroll}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+    }
 
-    document.addEventListener('click', (event) => {
+    function unlockScroll() {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, _savedScroll);
+    }
+
+    // when toggle changes, apply correct behaviours
+    navToggle.addEventListener('change', (e) => {
       if (window.innerWidth <= 768 && navToggle.checked) {
-        const siteNav = document.getElementById('site-nav');
-        if (!siteNav.contains(event.target)) {
-          navToggle.checked = false;
-        }
+        // open: lock scroll and ensure menu is visible from top
+        lockScroll();
+        // small immediate snap so overlay renders correctly on some devices
+        window.requestAnimationFrame(() => {
+          // no-op: frame used to ensure CSS transitions start after lock
+        });
+      } else {
+        // close: restore scroll
+        unlockScroll();
       }
     });
 
+    // close menu when a link is clicked
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navToggle.checked = false;
+          unlockScroll();
+        }
+      });
+    });
+
+    // outside click/touch should close the menu
+    function handleOutsideInteraction(event) {
+      if (window.innerWidth > 768) return;
+      if (!navToggle.checked) return;
+      const target = event.target;
+      if (!target.closest('#site-nav')) {
+        navToggle.checked = false;
+        unlockScroll();
+      }
+    }
+
+    document.addEventListener('click', handleOutsideInteraction, { passive: true });
+    document.addEventListener('touchstart', handleOutsideInteraction, { passive: true });
+
+    // on resize, ensure mobile state is reset when moving to desktop
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
-        navToggle.checked = false;
+        if (navToggle.checked) navToggle.checked = false;
+        unlockScroll();
       }
     });
 
