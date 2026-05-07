@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dragonfly Manufacturing</title>
+  <meta name="description" content="Dragonfly Manufacturing — Custom color-changing cups that reveal your brand with every pour.">
+  <title>Dragonfly Manufacturing — Custom Color-Changing Cups</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg: #07080a;
-      --surface: #0f1318;
-      --border: rgba(255,255,255,0.07);
-      --text: #e8edf2;
-      --muted: #6a7f94;
-      --accent: #d73127;
-      --white: #ffffff;
-      --red: #ff0000;
+      --bg:       #070809;
+      --surface:  #0d1117;
+      --lift:     #131920;
+      --border:   rgba(255,255,255,0.06);
+      --border-h: rgba(90,180,224,0.25);
+      --text:     #dce8f0;
+      --muted:    #586e7d;
+      --accent:   #5ab4e0;
+      --accent-d: rgba(90,180,224,0.08);
+      --white:    #ffffff;
     }
 
     * {
@@ -30,11 +34,11 @@
     }
 
     body {
-      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+      background: var(--bg);
       color: var(--text);
       font-family: Inter, sans-serif;
       font-weight: 300;
-      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -42,19 +46,34 @@
       text-decoration: none;
     }
 
-    .label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
     }
 
+    /* CUSTOM CURSOR */
+    #cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+    }
+
+    @media (min-width: 769px) {
+      #cursor {
+        display: block;
+      }
+    }
+
+    /* REVEAL ANIMATIONS */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-      transition-delay: var(--delay, 0ms);
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
     }
 
     .reveal.visible {
@@ -62,174 +81,209 @@
       transform: translateY(0);
     }
 
-    section {
-      min-height: 100svh;
-      padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 4vw, 4rem);
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    section.video-bg {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      opacity: 0.15;
-    }
-
-    section.video-bg .container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .container {
-      width: min(1200px, 100%);
-      margin: 0 auto;
-    }
-
-    .section-rule {
-      border-top: 1px solid var(--border);
-    }
-
+    /* NAVIGATION */
     nav {
       position: fixed;
-      inset: 0 0 auto 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 72px;
-      z-index: 20;
-      transition: all 0.4s ease;
+      z-index: 100;
+      transition: all 0.5s ease;
+      background: transparent;
       border-bottom: 1px solid transparent;
     }
 
     nav.scrolled {
-      backdrop-filter: blur(20px);
-      background: rgba(7,8,10,0.85);
-      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(7,8,9,0.82);
+      border-bottom-color: var(--border);
     }
 
     .nav-inner {
-      max-width: 1200px;
+      max-width: 1400px;
       height: 100%;
       margin: 0 auto;
-      padding: 0 clamp(1.2rem, 4vw, 3rem);
+      padding: 0 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 2rem;
     }
 
-    .brand {
+    .nav-brand {
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      font-size: 0.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-brand img {
+      height: 28px;
+      width: auto;
+    }
+
+    .nav-brand span {
+      font-family: Inter;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--white);
-      white-space: nowrap;
     }
 
-    .brand-logo {
-      height: 32px;
-      width: auto;
-      max-height: 100%;
-    }
-
-    .menu-toggle {
+    .nav-toggle {
       display: none;
     }
 
-    .menu-icon {
+    .nav-toggle-label {
       display: none;
-      width: 30px;
-      height: 22px;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
       cursor: pointer;
-      position: relative;
     }
 
-    .menu-icon span,
-    .menu-icon span::before,
-    .menu-icon span::after {
-      content: "";
-      position: absolute;
+    .nav-toggle-label span {
       width: 24px;
-      height: 1px;
+      height: 2px;
       background: var(--text);
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    .menu-icon span::before { transform: translateY(-7px); }
-    .menu-icon span::after { transform: translateY(7px); }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
 
     .nav-links {
       display: flex;
-      gap: clamp(1rem, 2vw, 2rem);
       align-items: center;
+      gap: 3rem;
       list-style: none;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
+      flex: 1;
+      justify-content: flex-end;
     }
 
     .nav-links a {
-      color: var(--red);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
       transition: color 0.3s ease;
     }
 
     .nav-links a:hover {
-      color: var(--white);
+      color: var(--text);
     }
 
+    .nav-enquire {
+      border: 1px solid var(--border-h);
+      color: var(--accent);
+      padding: 0.65rem 1.4rem;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .nav-enquire:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle-label {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(7,8,9,0.98);
+        justify-content: flex-start;
+        padding: 3rem 6%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+
+      .nav-toggle:checked ~ .nav-links {
+        max-height: 100vh;
+      }
+
+      .nav-links a {
+        font-size: 0.85rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border);
+        width: 100%;
+      }
+
+      .nav-enquire {
+        margin-top: 2rem;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* HERO SECTION */
     #hero {
-      padding: 0;
-      background: var(--bg);
+      position: relative;
+      height: 100vh;
       overflow: hidden;
-    }
-
-    .hero-video,
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      margin-top: 72px;
     }
 
     .hero-video {
-      width: 100vw;
-      height: 100vh;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
     .hero-overlay {
-      background: rgba(7,8,10,0.55);
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(7,8,9,0.3) 0%,
+        rgba(7,8,9,0.1) 40%,
+        rgba(7,8,9,0.7) 80%,
+        rgba(7,8,9,1.0) 100%
+      );
     }
 
     .hero-content {
-      width: min(920px, 100%);
-      margin: 0;
-      padding: 0 clamp(1.2rem, 4vw, 3rem);
-      text-align: left;
       position: relative;
-      z-index: 1;
-      opacity: 0;
-      animation: fadeInHero 0.8s ease forwards;
-      animation-delay: 5s;
+      z-index: 10;
+      max-width: 680px;
+      margin: 0 0 10% 6%;
+      animation: fadeInHero 1s cubic-bezier(0.16,1,0.3,1) 0.8s both;
     }
 
     @keyframes fadeInHero {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
@@ -237,1053 +291,1003 @@
       }
     }
 
-    #hero .label {
-      color: var(--text);
-      opacity: 0.85;
-      margin-bottom: 1.5rem;
+    .hero-eyebrow {
+      font-family: Inter;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
     }
 
     .hero-title {
       font-family: Cormorant, serif;
+      font-size: clamp(4rem, 9vw, 8rem);
+      font-weight: 300;
       font-style: italic;
-      font-weight: 300;
-      font-size: clamp(3rem, 9vw, 9rem);
       line-height: 0.95;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.01em;
       color: var(--white);
+      margin-bottom: 1.2rem;
     }
 
-    .hero-sub {
-      max-width: 760px;
-      margin: 0 0 2.2rem;
-      font-size: 1.1rem;
-      color: var(--muted);
+    .hero-title .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-family: Inter;
+      font-size: 1rem;
       font-weight: 300;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
     }
 
-    .hero-cta {
+    .hero-buttons {
       display: flex;
-      gap: 0.9rem;
-      justify-content: flex-start;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
     .btn {
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.85rem 1.4rem;
-      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      font-family: Inter;
+      font-size: 0.75rem;
       font-weight: 400;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
     }
 
     .btn-primary {
       background: var(--accent);
-      border-color: var(--accent);
       color: var(--bg);
+      border-color: var(--accent);
     }
 
     .btn-primary:hover {
-      background: transparent;
-      color: var(--text);
-      border-color: var(--accent);
+      transform: translateY(-2px);
+      filter: brightness(1.15);
     }
 
     .btn-ghost:hover {
       border-color: var(--accent);
-      color: var(--white);
+      color: var(--accent);
     }
 
     .scroll-indicator {
       position: absolute;
+      bottom: 3rem;
       left: 50%;
-      bottom: 2rem;
       transform: translateX(-50%);
-      width: 1px;
-      height: 48px;
-      background: var(--border);
-      overflow: hidden;
-      z-index: 1;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .scroll-indicator::before {
-      content: "";
-      position: absolute;
-      left: 0;
+    .scroll-indicator-line {
       width: 1px;
-      height: 18px;
+      height: 40px;
       background: var(--accent);
       animation: drop 1.5s ease-in-out infinite;
     }
 
     @keyframes drop {
-      0% { transform: translateY(-18px); opacity: 0; }
-      30% { opacity: 1; }
-      100% { transform: translateY(48px); opacity: 0; }
+      0% {
+        transform: translateY(-40px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
     }
 
+    .scroll-indicator-text {
+      font-family: Inter;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* SECTION COMMON */
+    section {
+      position: relative;
+      padding: 10rem 6%;
+    }
+
+    .section-label {
+      font-family: Inter;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    section h2 {
+      font-family: Cormorant, serif;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    section h3 {
+      font-family: Cormorant, serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+
+    /* ABOUT SECTION */
     #about {
       background: var(--surface);
     }
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: clamp(2rem, 5vw, 5rem);
+      grid-template-columns: 55fr 45fr;
+      gap: 8rem;
       align-items: start;
     }
 
     .about-copy p {
-      margin-bottom: 1.1rem;
-      color: var(--muted);
+      font-family: Inter;
       font-size: 1rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
     }
 
     .about-copy p:last-child {
       margin-bottom: 0;
     }
 
-    .stat-grid {
+    .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
       border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .stats-grid::before,
+    .stats-grid::after {
+      content: '';
+      position: absolute;
+      background: var(--border);
+    }
+
+    .stats-grid::before {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      transform: translateX(-0.5px);
+    }
+
+    .stats-grid::after {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      transform: translateY(-0.5px);
     }
 
     .stat-block {
-      padding: 1.8rem clamp(1rem, 3vw, 1.5rem);
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
       text-align: center;
+      border: 1px solid var(--border);
     }
 
-    .stat-block:nth-child(odd) {
-      border-right: 1px solid var(--border);
-    }
-
-    .stat-block:nth-child(even) {
-      border-right: none;
-    }
-
-    .stat-block:nth-child(n+3) {
-      border-bottom: none;
-    }
-
-    .stat-num {
+    .stat-number {
       font-family: Cormorant, serif;
-      font-size: 3.5rem;
+      font-size: clamp(3rem, 5vw, 4rem);
       font-weight: 300;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
     }
 
     .stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      font-family: Inter;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 300;
     }
 
+    @media (max-width: 768px) {
+      section {
+        padding: 6rem 6%;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    /* PRODUCT SECTION */
     #product {
-      background: var(--surface);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(1.8rem, 4vw, 5rem);
-      align-items: start;
-    }
-
-    .section-title {
-      font-family: Cormorant, serif;
-      font-weight: 300;
-      font-size: clamp(2rem, 6vw, 4.4rem);
-      line-height: 1.06;
-      margin-bottom: 1.4rem;
-      color: var(--red);
-    }
-
-    .section-copy {
-      color: var(--muted);
-      max-width: 55ch;
-      font-size: 1rem;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 1.1rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .feature-row {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1rem;
-      padding-top: 1.1rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.1rem;
-    }
-
-    .feature-num {
-      color: var(--accent);
-      font-family: Cormorant, serif;
-      font-size: 1.8rem;
-      line-height: 1;
-    }
-
-    .feature-title {
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-      font-size: 1rem;
-    }
-
-    .feature-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    #printing {
       background: var(--bg);
     }
 
-    .card-grid {
+    .product-video {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 1.2rem;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .features-grid::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 33.333%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .features-grid::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 66.666%;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .feature {
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-number {
+      font-family: Cormorant, serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--accent);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-family: Inter;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-desc {
+      font-family: Inter;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid::before,
+      .features-grid::after {
+        display: none;
+      }
+
+      .feature {
+        border-bottom: 1px solid var(--border);
+        padding: 2rem 0;
+      }
+
+      .feature:last-child {
+        border-bottom: none;
+      }
+    }
+
+    /* PRINT METHODS SECTION */
+    #print {
+      background: var(--surface);
+    }
+
+    #print h2 {
+      max-width: 600px;
+    }
+
+    .print-video {
+      width: 100%;
+      max-height: 50vh;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
     }
 
     .method-card {
+      background: var(--lift);
       border: 1px solid var(--border);
-      padding: 2.5rem;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      padding: 3rem 2.5rem;
+      transition: all 0.4s ease;
     }
 
     .method-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 30px rgba(215,49,39,0.06);
+      border-color: var(--border-h);
+      box-shadow: 0 0 40px rgba(90,180,224,0.05), inset 0 0 0 1px rgba(90,180,224,0.1);
     }
 
-    .method-num {
+    .method-number {
       font-family: Cormorant, serif;
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: 300;
-      opacity: 0.15;
-      margin-bottom: 0.5rem;
+      color: var(--accent);
+      opacity: 0.12;
+      line-height: 1;
+      margin-bottom: 1.5rem;
     }
 
     .method-title {
-      font-family: Cormorant, serif;
-      font-size: 1.8rem;
-      font-weight: 300;
-      margin-bottom: 0.8rem;
-      color: var(--white);
+      font-family: Inter;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    .method-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.2rem;
     }
 
     .method-desc {
+      font-family: Inter;
+      font-size: 0.9rem;
+      font-weight: 300;
       color: var(--muted);
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1.8rem;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .tag {
       border: 1px solid var(--border);
-      padding: 0.25rem 0.55rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
+      padding: 0.25rem 0.7rem;
+      font-family: Inter;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
+      border-radius: 2px;
     }
 
+    @media (max-width: 768px) {
+      .methods-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* SIZES SECTION */
     #sizes {
-      background: var(--surface);
+      background: var(--bg);
     }
 
-    .sizes-wrap {
-      margin-top: 1rem;
+    .sizes-video {
+      width: 100%;
+      max-height: 45vh;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      margin: 3rem 0;
     }
 
-    .cups {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(72px, 1fr));
-      gap: clamp(0.6rem, 1vw, 1rem);
-      align-items: end;
-      margin-top: 2.2rem;
+    .cups-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
     }
 
     .cup-item {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
     }
 
-    .cup-item svg {
-      width: 100%;
+    .cup-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .cup-svg {
+      width: 60px;
       height: auto;
-      display: block;
-      margin-bottom: 0.7rem;
+      filter: drop-shadow(0 0 20px rgba(90,180,224,0.1));
+    }
+
+    .cup-svg:hover path {
+      fill: rgba(90,180,224,0.12);
     }
 
     .cup-label {
-      font-size: 0.68rem;
+      font-family: Inter;
+      font-size: 0.7rem;
       font-weight: 300;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--text);
+      color: var(--muted);
     }
 
     .sizes-note {
-      margin-top: 1.5rem;
+      font-family: Inter;
+      font-size: 0.85rem;
+      font-weight: 300;
       color: var(--muted);
-      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-top: 2.5rem;
+      max-width: 500px;
     }
 
-    .video-gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .video-thumbnail {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: border-color 0.3s ease, transform 0.3s ease;
-      aspect-ratio: 16 / 9;
-    }
-
-    .video-thumbnail:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-    }
-
-    .video-thumbnail video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .play-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.4);
-      transition: background 0.3s ease;
-    }
-
-    .video-thumbnail:hover .play-overlay {
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .play-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      color: var(--bg);
-      transition: transform 0.3s ease;
-    }
-
-    .video-thumbnail:hover .play-icon {
-      transform: scale(1.1);
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .modal-video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      background: none;
-      border: none;
-      color: var(--accent);
-      font-size: 2rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close:hover {
-      color: var(--white);
-    }
-
-    @media (max-width: 900px) {
-      .video-gallery {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .video-gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .video-thumbnail {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .video-thumbnail:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-    }
-
-    .video-thumbnail video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .play-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.4);
-      transition: background 0.3s ease;
-    }
-
-    .video-thumbnail:hover .play-overlay {
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .play-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      color: var(--bg);
-      transition: transform 0.3s ease;
-    }
-
-    .video-thumbnail:hover .play-icon {
-      transform: scale(1.1);
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .modal-video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      background: none;
-      border: none;
-      color: var(--accent);
-      font-size: 2rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close:hover {
-      color: var(--white);
-    }
-
-    @media (max-width: 900px) {
-      .video-gallery {
-        grid-template-columns: 1fr;
-      }
-    }
-
+    /* CONTACT SECTION */
     #contact {
-      background: var(--bg);
+      background: var(--surface);
       text-align: center;
+      padding: 12rem 6% 8rem;
+    }
+
+    #contact h2 {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .contact-sub {
+      font-family: Inter;
+      font-size: 1rem;
+      font-weight: 300;
       color: var(--muted);
-      margin: 0 auto 1.8rem;
-      max-width: 55ch;
+      margin-top: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .contact-button {
+      margin-top: 3.5rem;
+      display: inline-block;
     }
 
     .info-grid {
-      margin-top: 2.2rem;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 6rem auto 0;
       text-align: left;
       border-top: 1px solid var(--border);
-      padding-top: 1.4rem;
+      padding-top: 3rem;
     }
 
     .info-label {
-      font-size: 0.62rem;
+      font-family: Inter;
+      font-size: 0.65rem;
+      font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
     }
 
-    .info-text {
-      font-size: 0.95rem;
+    .info-value {
+      font-family: Inter;
+      font-size: 0.9rem;
+      font-weight: 300;
       color: var(--text);
-      word-break: break-word;
+      line-height: 1.7;
     }
 
+    .info-value a {
+      color: var(--muted);
+      transition: color 0.3s ease;
+    }
+
+    .info-value a:hover {
+      color: var(--text);
+    }
+
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      background: var(--bg);
-      padding: 1rem clamp(1.2rem, 4vw, 3rem);
+      padding: 2rem 6%;
+      font-family: Inter;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--muted);
     }
 
     .footer-inner {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
-      color: var(--muted);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
+      gap: 2rem;
     }
 
-    @media (max-width: 900px) {
-      .product-grid,
-      .card-grid,
-      .info-grid,
-      .about-grid {
+    .footer-inner a {
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    .footer-inner a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .info-grid {
         grid-template-columns: 1fr;
-      }
-
-      .cups {
-        grid-template-columns: repeat(3, 1fr);
-        row-gap: 1.5rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      nav {
-        height: 64px;
-      }
-
-      .menu-icon {
-        display: flex;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 64px;
-        right: 0;
-        left: 0;
-        background: rgba(7,8,10,0.96);
-        border-bottom: 1px solid var(--border);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s ease;
-      }
-
-      .nav-links li {
-        width: 100%;
-      }
-
-      .nav-links a {
-        display: block;
-        padding: 1rem 1.2rem;
-        width: 100%;
-      }
-
-      .menu-toggle:checked ~ .nav-links {
-        max-height: 320px;
-      }
-
-      .menu-toggle:checked + .menu-icon span {
-        background: transparent;
-      }
-
-      .menu-toggle:checked + .menu-icon span::before {
-        transform: rotate(45deg);
-      }
-
-      .menu-toggle:checked + .menu-icon span::after {
-        transform: rotate(-45deg);
-      }
-
-      .hero-sub {
-        font-size: 1rem;
-      }
-
-      .btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .cups {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
       }
 
       .footer-inner {
         flex-direction: column;
+        gap: 1rem;
+      }
+
+      #contact {
+        padding: 8rem 6% 6rem;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor"></div>
+
+  <!-- NAVIGATION -->
   <nav id="site-nav">
     <div class="nav-inner">
-      <div class="brand">
-        <img src="logo.png" alt="Dragonfly MFG Logo" class="brand-logo">
-        Dragonfly MFG.
+      <div class="nav-brand">
+        <img src="logo.png" alt="Dragonfly Manufacturing">
+        <span>Dragonfly Mfg.</span>
       </div>
-      <input class="menu-toggle" type="checkbox" id="menu-toggle" aria-label="Toggle navigation">
-      <label class="menu-icon" for="menu-toggle" aria-hidden="true"><span></span></label>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
       <ul class="nav-links">
+        <li><a href="#about">About</a></li>
         <li><a href="#product">Product</a></li>
-        <li><a href="#printing">Printing</a></li>
+        <li><a href="#print">Print</a></li>
         <li><a href="#sizes">Sizes</a></li>
-        <li><a href="#contact">Enquire</a></li>
+        <li><a href="#contact" class="nav-enquire">Enquire</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- HERO SECTION -->
   <section id="hero">
-    <video class="hero-video" autoplay muted loop playsinline loading="lazy" preload="metadata" aria-label="Background video of cold drinks being poured">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
       <source src="video.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
+
     <div class="hero-content">
-      <p class="label reveal" data-delay="100">Hong Kong · Est. 2017
-      </p>
-      <h1 class="hero-title reveal" data-delay="200">Pour. Reveal. Amaze.</h1>
-      <p class="hero-sub reveal" data-delay="300">Custom cold-activated color-changing cups — your brand revealed with every pour.</p>
-      <div class="hero-cta reveal" data-delay="400">
-        <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Quote%20Request">Request a Quote</a>
-        <a class="btn btn-ghost" href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener noreferrer">View Catalog</a>
+      <div class="hero-eyebrow reveal">Hong Kong  ·  Est. 2017</div>
+      <h1 class="hero-title reveal" data-delay="0.1">Pour. <span class="accent">Reveal.</span> Amaze.</h1>
+      <p class="hero-subtitle reveal" data-delay="0.2">Custom cold-activated color-changing cups — your brand revealed with every pour.</p>
+      <div class="hero-buttons reveal" data-delay="0.3">
+        <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Enquiry%20—%20Dragonfly%20Manufacturing">
+          Request a Quote
+        </a>
+        <a class="btn btn-ghost" href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">
+          View Catalog →
+        </a>
       </div>
     </div>
-    <div class="scroll-indicator" aria-hidden="true"></div>
-  </section>
 
-  <section id="about" class="section-rule">
-    <div class="container">
-      <p class="label reveal">- Who We Are</p>
-      <div class="about-grid">
-        <div class="about-copy">
-          <h2 class="section-title reveal" data-delay="100">Crafting moments brands never forget.</h2>
-          <p class="reveal" data-delay="150">Dragonfly Manufacturing Ltd. is a Hong Kong-based manufacturer specialising in custom cold-activated color-changing cups. We work directly with brands, agencies, retailers, and event companies worldwide to deliver products that create genuine moments of surprise.</p>
-          <p class="reveal" data-delay="200">From concept to finished product — we handle printing, production, and packaging under one roof. Our team in Sheung Wan, Hong Kong brings together precision manufacturing and creative flexibility, so your brand gets exactly what it needs.</p>
-          <p class="reveal" data-delay="250">Whether you need 500 cups for a product launch or 50,000 for a global campaign — we scale with you.</p>
-        </div>
-        <div class="stat-grid reveal" data-delay="100">
-          <div class="stat-block">
-            <p class="stat-num">500+</p>
-            <p class="stat-label">Brands Served</p>
-          </div>
-          <div class="stat-block">
-            <p class="stat-num">3</p>
-            <p class="stat-label">Print Methods</p>
-          </div>
-          <div class="stat-block">
-            <p class="stat-num">HK</p>
-            <p class="stat-label">Headquartered</p>
-          </div>
-          <div class="stat-block">
-            <p class="stat-num">2026</p>
-            <p class="stat-label">Catalog Edition</p>
-          </div>
-        </div>
-      </div>
+    <div class="scroll-indicator">
+      <div class="scroll-indicator-line"></div>
+      <div class="scroll-indicator-text">Scroll</div>
     </div>
   </section>
 
-  <section class="section-rule" style="padding: 4rem clamp(1.2rem, 4vw, 4rem);">
-    <div class="container">
-      <div class="video-gallery">
-        <div class="video-thumbnail reveal" data-delay="340" data-video="video2.mp4">
-          <video muted autoplay playsinline loop preload="metadata">
-            <source src="video2.mp4" type="video/mp4">
-          </video>
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <p class="section-label reveal">— Who We Are</p>
+    <div class="about-grid">
+      <div>
+        <h2 class="reveal" data-delay="0.1">Crafting moments brands never forget.</h2>
+        <p class="reveal" data-delay="0.2">Dragonfly Manufacturing Ltd. is a Hong Kong-based manufacturer specializing in custom cold-activated color-changing cups. We work directly with brands, agencies, retailers, and event companies worldwide to deliver products that create genuine moments of surprise and delight.</p>
+        <p class="reveal" data-delay="0.3">From concept to finished product — we handle printing, production, and packaging under one roof. Our team in Sheung Wan, Hong Kong brings together precision manufacturing and creative flexibility, so your brand gets exactly what it needs.</p>
+        <p class="reveal" data-delay="0.4">Whether you need 500 cups for a product launch or 50,000 for a global campaign — we scale with you.</p>
+      </div>
+      <div class="stats-grid reveal" data-delay="0.2">
+        <div class="stat-block">
+          <div class="stat-number" data-target="500">0</div>
+          <div class="stat-label">Brands Served</div>
         </div>
-        <div class="video-thumbnail reveal" data-delay="420" data-video="video3.mp4">
-          <video muted autoplay playsinline loop preload="metadata">
-            <source src="video3.mp4" type="video/mp4">
-          </video>
+        <div class="stat-block">
+          <div class="stat-number" data-target="3">0</div>
+          <div class="stat-label">Print Methods</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" data-target="15" data-suffix="+ yrs">0</div>
+          <div class="stat-label">Experience</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number">HK</div>
+          <div class="stat-label">Headquartered</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="product" class="section-rule video-bg">
-    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+  <!-- PRODUCT SECTION -->
+  <section id="product">
+    <p class="section-label reveal">— The Product</p>
+    <h2 class="reveal" data-delay="0.1">A hidden design, revealed by cold.</h2>
+    
+    <video class="product-video reveal" data-delay="0.2" autoplay muted loop playsinline preload="metadata">
       <source src="video2.mp4" type="video/mp4">
     </video>
-    <div class="container">
-      <p class="label reveal">- The Product</p>
-      <div class="product-grid">
-        <div>
-          <h2 class="section-title reveal" data-delay="100">A hidden design, revealed by cold.</h2>
-          <p class="section-copy reveal" data-delay="200">
-            Dragonfly cups are coated with thermochromic pigments that react when a chilled drink is poured in.
-            As the surface temperature drops, hidden artwork appears in full clarity, then fades as the cup warms.
-            This creates a repeatable reveal moment that turns every sip into a branded interaction.
-          </p>
+
+    <div class="features-grid">
+      <div class="feature reveal" data-delay="0.1">
+        <div class="feature-number">01</div>
+        <div class="feature-title">Cold Activation</div>
+        <div class="feature-desc">Design appears as temperature shifts with cold liquid, then fades as the cup warms. A repeatable reveal with every sip.</div>
+      </div>
+      <div class="feature reveal" data-delay="0.2">
+        <div class="feature-number">02</div>
+        <div class="feature-title">Full Custom Print</div>
+        <div class="feature-desc">Artwork, logos, and wraps tailored to your campaign. Any color, any complexity.</div>
+      </div>
+      <div class="feature reveal" data-delay="0.3">
+        <div class="feature-number">03</div>
+        <div class="feature-title">Any Brand Any Scale</div>
+        <div class="feature-desc">From boutique drops to large-volume promotions. Handmade or high-speed production.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINT METHODS SECTION -->
+  <section id="print">
+    <p class="section-label reveal">— Print Methods</p>
+    <h2 class="reveal" data-delay="0.1">Three ways to tell your story.</h2>
+
+    <video class="print-video reveal" data-delay="0.2" autoplay muted loop playsinline preload="metadata">
+      <source src="video3.mp4" type="video/mp4">
+    </video>
+
+    <div class="methods-grid">
+      <div class="method-card reveal" data-delay="0.1">
+        <div class="method-number">01</div>
+        <div class="method-title">Heat Transfer</div>
+        <div class="method-divider"></div>
+        <div class="method-desc">Full-colour, photo-quality output for complex artwork, gradients, and photographic imagery.</div>
+        <div class="tags">
+          <span class="tag">Full Colour</span>
+          <span class="tag">Photo Quality</span>
+          <span class="tag">Complex Art</span>
         </div>
-        <div class="feature-list">
-          <div class="feature-row reveal" data-delay="100">
-            <div class="feature-num">01</div>
-            <div>
-              <p class="feature-title">Cold Activation</p>
-              <p class="feature-desc">Design appears as temperature shifts with cold liquid.</p>
-            </div>
-          </div>
-          <div class="feature-row reveal" data-delay="200">
-            <div class="feature-num">02</div>
-            <div>
-              <p class="feature-title">Full Custom Print</p>
-              <p class="feature-desc">Artwork, logos, and wraps tailored to your campaign.</p>
-            </div>
-          </div>
-          <div class="feature-row reveal" data-delay="300">
-            <div class="feature-num">03</div>
-            <div>
-              <p class="feature-title">Any Brand Any Scale</p>
-              <p class="feature-desc">From boutique drops to large-volume promotions.</p>
-            </div>
-          </div>
+      </div>
+      <div class="method-card reveal" data-delay="0.2">
+        <div class="method-number">02</div>
+        <div class="method-title">Silk Printing</div>
+        <div class="method-divider"></div>
+        <div class="method-desc">Solid colours that stay vivid and durable, ideal for logos and bold typography.</div>
+        <div class="tags">
+          <span class="tag">Solid Colour</span>
+          <span class="tag">Vivid</span>
+          <span class="tag">Durable</span>
+        </div>
+      </div>
+      <div class="method-card reveal" data-delay="0.3">
+        <div class="method-number">03</div>
+        <div class="method-title">Pad Printing</div>
+        <div class="method-divider"></div>
+        <div class="method-desc">Precise, minimal branding with efficient production cost and clean execution.</div>
+        <div class="tags">
+          <span class="tag">Precise</span>
+          <span class="tag">Minimal</span>
+          <span class="tag">Cost Efficient</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="printing" class="section-rule video-bg">
-    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
+  <!-- SIZES SECTION -->
+  <section id="sizes">
+    <p class="section-label reveal">— Sizes</p>
+    <h2 class="reveal" data-delay="0.1">Every format, fully yours.</h2>
+
+    <video class="sizes-video reveal" data-delay="0.2" autoplay muted loop playsinline preload="metadata">
       <source src="video2.mp4" type="video/mp4">
     </video>
-    <div class="container">
-      <p class="label reveal">- Print Methods</p>
-      <div class="card-grid">
-        <article class="method-card reveal" data-delay="100">
-          <p class="method-num">01</p>
-          <h3 class="method-title">Heat Transfer</h3>
-          <p class="method-desc">Full-colour, photo-quality output for complex artwork and gradients.</p>
-          <div class="tags">
-            <span class="tag">Full Colour</span>
-            <span class="tag">Photo Quality</span>
-            <span class="tag">Complex Art</span>
-          </div>
-        </article>
-        <article class="method-card reveal" data-delay="180">
-          <p class="method-num">02</p>
-          <h3 class="method-title">Silk Printing</h3>
-          <p class="method-desc">Solid colours that stay vivid and durable, ideal for logos.</p>
-          <div class="tags">
-            <span class="tag">Solid Colour</span>
-            <span class="tag">Vivid</span>
-            <span class="tag">Durable</span>
-          </div>
-        </article>
-        <article class="method-card reveal" data-delay="260">
-          <p class="method-num">03</p>
-          <h3 class="method-title">Pad Printing</h3>
-          <p class="method-desc">Precise minimal branding with efficient production cost.</p>
-          <div class="tags">
-            <span class="tag">Precise</span>
-            <span class="tag">Minimal</span>
-            <span class="tag">Cost Efficient</span>
-          </div>
-        </article>
+
+    <div class="cups-row">
+      <div class="cup-item reveal" data-delay="0.1">
+        <svg class="cup-svg" viewBox="0 0 80 100" role="img" aria-label="XS cup">
+          <path d="M25 10 L28 95 L52 95 L55 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
+          <path d="M25 10 L55 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <div class="cup-label">XS</div>
+      </div>
+      <div class="cup-item reveal" data-delay="0.15">
+        <svg class="cup-svg" viewBox="0 0 80 120" role="img" aria-label="S cup">
+          <path d="M23 10 L27 110 L53 110 L57 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
+          <path d="M23 10 L57 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <div class="cup-label">S</div>
+      </div>
+      <div class="cup-item reveal" data-delay="0.2">
+        <svg class="cup-svg" viewBox="0 0 80 140" role="img" aria-label="M cup">
+          <path d="M21 10 L26 130 L54 130 L59 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
+          <path d="M21 10 L59 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <div class="cup-label">M</div>
+      </div>
+      <div class="cup-item reveal" data-delay="0.25">
+        <svg class="cup-svg" viewBox="0 0 80 160" role="img" aria-label="L cup">
+          <path d="M19 10 L25 150 L55 150 L61 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
+          <path d="M19 10 L61 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <div class="cup-label">L</div>
+      </div>
+      <div class="cup-item reveal" data-delay="0.3">
+        <svg class="cup-svg" viewBox="0 0 80 180" role="img" aria-label="XL cup">
+          <path d="M17 10 L24 170 L56 170 L63 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
+          <path d="M17 10 L63 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <div class="cup-label">XL</div>
+      </div>
+      <div class="cup-item reveal" data-delay="0.35">
+        <svg class="cup-svg" viewBox="0 0 80 180" role="img" aria-label="Custom cup">
+          <path d="M17 10 L24 170 L56 170 L63 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="4 2"/>
+          <path d="M17 10 L63 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+          <text x="40" y="92" text-anchor="middle" font-size="24" fill="var(--accent)" font-family="Cormorant" opacity="0.4">?</text>
+        </svg>
+        <div class="cup-label">Custom</div>
       </div>
     </div>
+
+    <p class="sizes-note reveal" data-delay="0.4">Custom sizes and configurations available on request. Lead times vary by volume and seasonality.</p>
   </section>
 
-  <section id="sizes" class="section-rule video-bg">
-    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
-      <source src="video2.mp4" type="video/mp4">
-    </video>
-    <div class="container sizes-wrap">
-      <p class="label reveal">- Sizes</p>
-      <h2 class="section-title reveal" data-delay="100">Every format, fully yours.</h2>
-      <div class="cups">
-        <div class="cup-item reveal" data-delay="120">
-          <svg viewBox="0 0 80 140" role="img" aria-label="XS cup silhouette">
-            <path d="M20 20 L30 130 L50 130 L60 20 Z" stroke="var(--accent)" fill="rgba(37,150,190,0.05)" stroke-width="1.4"></path>
-            <line x1="20" y1="20" x2="60" y2="20" stroke="var(--accent)" stroke-width="1.2"></line>
-          </svg>
-          <p class="cup-label">XS</p>
-        </div>
-        <div class="cup-item reveal" data-delay="160">
-          <svg viewBox="0 0 80 160" role="img" aria-label="S cup silhouette">
-            <path d="M18 18 L28 150 L52 150 L62 18 Z" stroke="var(--accent)" fill="rgba(37,150,190,0.05)" stroke-width="1.4"></path>
-            <line x1="18" y1="18" x2="62" y2="18" stroke="var(--accent)" stroke-width="1.2"></line>
-          </svg>
-          <p class="cup-label">S</p>
-        </div>
-        <div class="cup-item reveal" data-delay="200">
-          <svg viewBox="0 0 80 180" role="img" aria-label="M cup silhouette">
-            <path d="M16 18 L27 170 L53 170 L64 18 Z" stroke="var(--accent)" fill="rgba(37,150,190,0.05)" stroke-width="1.4"></path>
-            <line x1="16" y1="18" x2="64" y2="18" stroke="var(--accent)" stroke-width="1.2"></line>
-          </svg>
-          <p class="cup-label">M</p>
-        </div>
-        <div class="cup-item reveal" data-delay="240">
-          <svg viewBox="0 0 80 205" role="img" aria-label="L cup silhouette">
-            <path d="M14 18 L26 195 L54 195 L66 18 Z" stroke="var(--accent)" fill="rgba(215,49,39,0.05)" stroke-width="1.4"></path>
-            <line x1="14" y1="18" x2="66" y2="18" stroke="var(--accent)" stroke-width="1.2"></line>
-          </svg>
-          <p class="cup-label">L</p>
-        </div>
-        <div class="cup-item reveal" data-delay="280">
-          <svg viewBox="0 0 80 230" role="img" aria-label="XL cup silhouette">
-            <path d="M12 18 L24 220 L56 220 L68 18 Z" stroke="var(--accent)" fill="rgba(215,49,39,0.05)" stroke-width="1.4"></path>
-            <line x1="12" y1="18" x2="68" y2="18" stroke="var(--accent)" stroke-width="1.2"></line>
-          </svg>
-          <p class="cup-label">XL</p>
-        </div>
-        <div class="cup-item reveal" data-delay="320">
-          <svg viewBox="0 0 80 230" role="img" aria-label="Custom cup silhouette">
-            <path d="M12 18 L24 220 L56 220 L68 18 Z" stroke="var(--accent)" fill="rgba(215,49,39,0.05)" stroke-width="1.4" stroke-dasharray="5 4"></path>
-            <line x1="12" y1="18" x2="68" y2="18" stroke="var(--accent)" stroke-width="1.2"></line>
-            <text x="40" y="126" text-anchor="middle" fill="var(--accent)" font-size="18" font-family="Inter">?</text>
-          </svg>
-          <p class="cup-label">Custom</p>
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <p class="section-label reveal">— Get In Touch</p>
+    <h2 class="reveal" data-delay="0.1">Let's build something remarkable.</h2>
+    <p class="contact-sub reveal" data-delay="0.2">Tell us your concept, timeline, and quantity. We'll reply with practical guidance and a clear quotation.</p>
+    
+    <div class="contact-button reveal" data-delay="0.3">
+      <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Enquiry%20—%20Dragonfly%20Manufacturing">
+        Send an Enquiry →
+      </a>
+    </div>
+
+    <div class="info-grid reveal" data-delay="0.4">
+      <div>
+        <div class="info-label">Email</div>
+        <div class="info-value">
+          <a href="mailto:sales1@dragonfly-manufacturing.com">sales1@dragonfly-manufacturing.com</a>
         </div>
       </div>
-      <p class="sizes-note reveal" data-delay="360">Custom sizes available on request.</p>
-    </div>
-  </section>
-
-  <section id="contact" class="section-rule video-bg">
-    <video class="video-background" muted autoplay playsinline loop preload="metadata" data-start="0.10" data-end="0.12">
-      <source src="video2.mp4" type="video/mp4">
-    </video>
-    <div class="container">
-      <h2 class="section-title reveal">Let's build something remarkable.</h2>
-      <p class="contact-sub reveal" data-delay="100">Tell us your concept, timeline, and quantity. We will reply with practical guidance and a clear quotation.</p>
-      <p class="reveal" data-delay="160">
-        <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Enquiry%20%E2%80%94%20Dragonfly%20Manufacturing">Send an Enquiry</a>
-      </p>
-      <div class="info-grid reveal" data-delay="220">
-        <div>
-          <p class="info-label">Email</p>
-          <p class="info-text">sales1@dragonfly-manufacturing.com</p>
-        </div>
-        <div>
-          <p class="info-label">Address</p>
-          <p class="info-text">Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</p>
-        </div>
-        <div>
-          <p class="info-label">Catalog</p>
-          <p class="info-text">dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf</p>
+      <div>
+        <div class="info-label">Address</div>
+        <div class="info-value">Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</div>
+      </div>
+      <div>
+        <div class="info-label">Catalog</div>
+        <div class="info-value">
+          <a href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">2026 Catalog →</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <p>© 2026 Dragonfly Manufacturing Ltd.</p>
-      <p>www.dragonfly-manufacturing.com</p>
+      <p><a href="https://www.dragonfly-manufacturing.com" target="_blank" rel="noopener">www.dragonfly-manufacturing.com</a></p>
     </div>
   </footer>
 
-  <!-- Video Modal -->
-  <div id="videoModal" class="modal">
-    <div class="modal-content">
-      <button class="modal-close" aria-label="Close video">&times;</button>
-      <video class="modal-video" controls autoplay>
-        <source id="modal-video-source" src="" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <!-- Video Modal -->
-  <div id="videoModal" class="modal">
-    <div class="modal-content">
-      <button class="modal-close" aria-label="Close video">&times;</button>
-      <video class="modal-video" controls autoplay loop>
-        <source id="modal-video-source" src="" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
   <script>
-    const nav = document.getElementById('site-nav');
+    // ============================================
+    // CUSTOM CURSOR
+    // ============================================
+    const cursor = document.getElementById('cursor');
+    let cursorX = 0;
+    let cursorY = 0;
+    let targetX = 0;
+    let targetY = 0;
 
-    const onScroll = () => {
-      nav.classList.toggle('scrolled', window.scrollY > 80);
-    };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    const revealItems = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const delay = Number(entry.target.dataset.delay || 0);
-          entry.target.style.setProperty('--delay', `${delay}ms`);
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    revealItems.forEach((item) => observer.observe(item));
-
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const menuToggle = document.getElementById('menu-toggle');
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        menuToggle.checked = false;
-      });
-    });
-
-    // ===== VIDEO TRIMMING & LOOPING =====
-    const backgroundVideos = document.querySelectorAll('.video-background');
-    backgroundVideos.forEach((video) => {
-      const startTime = parseFloat(video.dataset.start);
-      const endTime = parseFloat(video.dataset.end);
-      const duration = endTime - startTime;
-
-      video.addEventListener('loadedmetadata', () => {
-        video.currentTime = startTime;
-        video.play();
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
       });
 
-      video.addEventListener('timeupdate', () => {
-        if (video.currentTime >= endTime) {
-          video.currentTime = startTime;
-        }
+      document.addEventListener('mousedown', () => {
+        cursor.style.borderWidth = '2px';
       });
 
-      video.addEventListener('ended', () => {
-        video.currentTime = startTime;
-        video.play();
+      document.addEventListener('mouseup', () => {
+        cursor.style.borderWidth = '1px';
       });
-    });
 
-    // ===== VIDEO MODAL =====
-    const videoModal = document.getElementById('videoModal');
-    const modalVideoSource = document.getElementById('modal-video-source');
-    const modalVideo = document.querySelector('.modal-video');
-    const modalClose = document.querySelector('.modal-close');
-    const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+      // Interactive elements
+      document.querySelectorAll('a, button, .btn').forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '25px';
+          cursor.style.height = '25px';
+          cursor.style.borderColor = 'var(--accent)';
+        });
 
-    videoThumbnails.forEach((thumbnail) => {
-      thumbnail.addEventListener('click', () => {
-        const videoSrc = thumbnail.dataset.video;
-        modalVideoSource.src = videoSrc;
-        videoModal.classList.add('active');
-        modalVideo.load();
-        document.body.style.overflow = 'hidden';
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '10px';
+          cursor.style.height = '10px';
+          cursor.style.borderColor = 'var(--accent)';
+        });
       });
-    });
 
-    modalClose.addEventListener('click', closeModal);
-    videoModal.addEventListener('click', (e) => {
-      if (e.target === videoModal) {
-        closeModal();
+      // Smooth cursor follow (lerp)
+      function updateCursor() {
+        cursorX += (targetX - cursorX) * 0.2;
+        cursorY += (targetY - cursorY) * 0.2;
+        cursor.style.transform = `translate(${cursorX - 5}px, ${cursorY - 5}px)`;
+        requestAnimationFrame(updateCursor);
       }
-    });
-
-    function closeModal() {
-      videoModal.classList.remove('active');
-      modalVideo.pause();
-      document.body.style.overflow = 'auto';
+      updateCursor();
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
-        closeModal();
+    // ============================================
+    // NAVIGATION SCROLL STATE
+    // ============================================
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
       }
     });
+
+    // Close mobile menu on link click
+    const navToggle = document.getElementById('nav-toggle');
+    document.querySelectorAll('.nav-links a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navToggle.checked = false;
+      });
+    });
+
+    // ============================================
+    // SCROLL REVEAL (IntersectionObserver)
+    // ============================================
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay || '0';
+            entry.target.style.transitionDelay = `${parseFloat(delay) * 1000}ms`;
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    // ============================================
+    // COUNT-UP ANIMATION FOR STATS
+    // ============================================
+    function countUp(element, target, duration = 2000) {
+      const start = Date.now();
+      const initial = 0;
+      const suffix = element.dataset.suffix || '+';
+
+      function update() {
+        const now = Date.now();
+        const progress = Math.min((now - start) / duration, 1);
+        const value = Math.floor(initial + (target - initial) * progress);
+        element.textContent = value + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    const statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const statNumber = entry.target;
+            const target = parseInt(statNumber.dataset.target);
+            if (!isNaN(target) && !statNumber.dataset.animated) {
+              countUp(statNumber, target);
+              statNumber.dataset.animated = 'true';
+            }
+            statsObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll('.stat-number').forEach((stat) => {
+      statsObserver.observe(stat);
+    });
   </script>
+
 </body>
 </html>
