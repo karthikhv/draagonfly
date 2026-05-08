@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Dragonfly Manufacturing — Custom color-changing cups that reveal your brand with every pour.">
   <title>Dragonfly Manufacturing — Custom Color-Changing Cups</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -16,11 +17,12 @@
       --lift:     #131920;
       --border:   rgba(255,255,255,0.06);
       --border-h: rgba(90,180,224,0.25);
-      --text:     #dce8f0;
-      --muted:    #586e7d;
+      --text:     #ffffff;
+      --muted:    #ffffff;
       --accent:   #ca2b23;
       --accent-d: rgba(90,180,224,0.08);
       --white:    #ffffff;
+      --font-main: 'Sora', sans-serif;
     }
 
     * {
@@ -36,9 +38,17 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, sans-serif;
+      font-family: var(--font-main);
       font-weight: 300;
       overflow-x: hidden;
+    }
+
+    body,
+    button,
+    input,
+    textarea,
+    select {
+      font-family: var(--font-main);
     }
 
     a {
@@ -58,6 +68,7 @@
       height: 10px;
       border: 1px solid var(--accent);
       border-radius: 50%;
+      transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 1000;
       display: none;
@@ -125,7 +136,7 @@
     }
 
     .nav-brand span {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.75rem;
       font-weight: 500;
       letter-spacing: 0.15em;
@@ -188,6 +199,7 @@
     .nav-enquire {
       border: 1px solid var(--border-h);
       color: var(--accent);
+      background: var(--accent);
       padding: 0.65rem 1.4rem;
       font-size: 0.72rem;
       font-weight: 400;
@@ -198,7 +210,7 @@
     }
 
     .nav-enquire:hover {
-      background: var(--accent);
+      background: var(--bg);
       color: var(--bg);
       border-color: var(--accent);
     }
@@ -297,7 +309,7 @@
     }
 
     .hero-eyebrow {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.7rem;
       font-weight: 300;
       letter-spacing: 0.25em;
@@ -307,8 +319,8 @@
     }
 
     .hero-title {
-      font-family: Cormorant, serif;
-      font-size: clamp(4rem, 9vw, 8rem);
+      font-family: var(--font-main);
+      font-size: clamp(2rem, 9vw, 5rem);
       font-weight: 300;
       font-style: italic;
       line-height: 0.95;
@@ -321,7 +333,7 @@
     }
 
     .hero-subtitle {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 1rem;
       font-weight: 300;
       color: var(--muted);
@@ -341,7 +353,7 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.85rem 2rem;
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.75rem;
       font-weight: 400;
       letter-spacing: 0.12em;
@@ -404,7 +416,7 @@
     }
 
     .scroll-indicator-text {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -418,7 +430,7 @@
     }
 
     .section-label {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.7rem;
       font-weight: 400;
       letter-spacing: 0.22em;
@@ -428,17 +440,25 @@
     }
 
     section h2 {
-      font-family: Cormorant, serif;
+      font-family: var(--font-main);
       font-size: clamp(2.5rem, 6vw, 5.5rem);
       font-weight: 300;
-      font-style: italic;
+      font-style: normal;
       line-height: 1.05;
       color: var(--white);
       margin-bottom: 2rem;
     }
 
+    /* Re-enable italic for specific legacy headings */
+    #about h2,
+    #product h2,
+    #print h2,
+    #contact h2 {
+      font-style: italic;
+    }
+
     section h3 {
-      font-family: Cormorant, serif;
+      font-family: var(--font-main);
       font-size: 1.4rem;
       font-weight: 300;
       color: var(--white);
@@ -456,8 +476,151 @@
       align-items: start;
     }
 
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 5rem;
+      padding-top: 5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .story-copy h3 {
+      margin-bottom: 1rem;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+    }
+
+    .story-copy p {
+      font-family: var(--font-main);
+      font-size: 0.98rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+      max-width: 52ch;
+    }
+
+    .story-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .compare-card {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+    }
+
+    .compare-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #050607;
+      aspect-ratio: 4 / 5;
+      --compare-pos: 50%;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .compare-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .compare-after-wrap {
+      position: absolute;
+      inset: 0;
+      width: var(--compare-pos);
+      overflow: hidden;
+      border-right: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .compare-divider {
+      position: absolute;
+      top: 0;
+      left: var(--compare-pos);
+      width: 2px;
+      height: 100%;
+      background: var(--accent);
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    }
+
+    .compare-handle {
+      position: absolute;
+      top: 50%;
+      left: var(--compare-pos);
+      width: 3.25rem;
+      height: 3.25rem;
+      transform: translate(-50%, -50%);
+      border: 1px solid var(--border-h);
+      border-radius: 999px;
+      background: rgba(7, 8, 9, 0.88);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      cursor: ew-resize;
+      z-index: 2;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .compare-handle::before {
+      content: '↔';
+      font-size: 0.95rem;
+      letter-spacing: 0;
+    }
+
+    .compare-labels {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .compare-label {
+      padding: 0.45rem 0.7rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(7,8,9,0.66);
+      color: var(--white);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .compare-range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 3;
+    }
+
+    .compare-note {
+      margin-top: 0.9rem;
+      font-family: var(--font-main);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .about-copy p {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 1rem;
       font-weight: 300;
       color: var(--muted);
@@ -507,7 +670,7 @@
     }
 
     .stat-number {
-      font-family: Cormorant, serif;
+      font-family: var(--font-main);
       font-size: clamp(3rem, 5vw, 4rem);
       font-weight: 300;
       color: var(--accent);
@@ -516,7 +679,7 @@
     }
 
     .stat-label {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.75rem;
       font-weight: 300;
       letter-spacing: 0.15em;
@@ -532,6 +695,26 @@
       .about-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        margin-top: 3.5rem;
+        padding-top: 3.5rem;
+      }
+
+      .compare-card {
+        max-width: 100%;
+        margin-left: 0;
+      }
+
+      .compare-frame {
+        aspect-ratio: 1 / 1.08;
+      }
+
+      .story-copy h3 {
+        font-size: clamp(1.55rem, 6vw, 2rem);
       }
     }
 
@@ -606,17 +789,16 @@
     }
 
     .feature-number {
-      font-family: Cormorant, serif;
+      font-family: var(--font-main);
       font-size: 2.5rem;
       font-weight: 300;
       color: var(--accent);
-      opacity: 0.2;
       line-height: 1;
       margin-bottom: 1rem;
     }
 
     .feature-title {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.15em;
@@ -626,7 +808,7 @@
     }
 
     .feature-desc {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.9rem;
       font-weight: 300;
       color: var(--muted);
@@ -712,17 +894,16 @@
     }
 
     .method-number {
-      font-family: Cormorant, serif;
+      font-family: var(--font-main);
       font-size: 5rem;
       font-weight: 300;
       color: var(--accent);
-      opacity: 0.12;
       line-height: 1;
       margin-bottom: 1.5rem;
     }
 
     .method-title {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.18em;
@@ -738,7 +919,7 @@
     }
 
     .method-desc {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.9rem;
       font-weight: 300;
       color: var(--muted);
@@ -755,7 +936,7 @@
     .tag {
       border: 1px solid var(--border);
       padding: 0.25rem 0.7rem;
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.65rem;
       font-weight: 300;
       letter-spacing: 0.15em;
@@ -770,72 +951,84 @@
       }
     }
 
-    /* SIZES SECTION */
-    #sizes {
-      background: var(--bg);
+#sizes {
+  background: var(--bg);
+  padding: 10rem 6%;
+}
+.sizes-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+}
+.size-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+.size-item:hover { transform: translateY(-8px); }
+.size-item span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sizes-note {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+    .wechat-popup {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      width: min(220px, calc(100vw - 2rem));
+      background: rgba(13,17,23,0.96);
+      border: 1px solid var(--border-h);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      padding: 0.75rem;
+      z-index: 220;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
     }
 
-    .sizes-video {
+    .wechat-popup.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .wechat-popup img {
       width: 100%;
-      max-height: 45vh;
-      object-fit: cover;
+      display: block;
       border: 1px solid var(--border);
-      margin: 3rem 0;
     }
 
-    .cups-row {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 2rem;
-      margin-top: 4rem;
-      flex-wrap: wrap;
-    }
-
-    .cup-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      transition: all 0.3s ease;
-      will-change: transform;
-    }
-
-    .cup-item:hover {
-      transform: translateY(-6px);
-    }
-
-    .cup-svg path {
-      transition: fill 0.3s ease, stroke 0.3s ease;
-    }
-
-    .cup-svg {
-      width: 60px;
-      height: auto;
-      filter: drop-shadow(0 0 20px rgba(90,180,224,0.1));
-    }
-
-    .cup-svg:hover path {
-      fill: rgba(90,180,224,0.12);
-    }
-
-    .cup-label {
-      font-family: Inter;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.15em;
+    .wechat-popup-close {
+      width: 100%;
+      margin-top: 0.6rem;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid var(--border-h);
+      background: transparent;
+      color: var(--text);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      cursor: pointer;
     }
 
-    .sizes-note {
-      font-family: Inter;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 2.5rem;
-      max-width: 500px;
+    .wechat-popup-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     /* CONTACT SECTION */
@@ -852,7 +1045,7 @@
     }
 
     .contact-sub {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 1rem;
       font-weight: 300;
       color: var(--muted);
@@ -877,7 +1070,7 @@
     }
 
     .info-label {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.65rem;
       font-weight: 400;
       letter-spacing: 0.2em;
@@ -887,7 +1080,7 @@
     }
 
     .info-value {
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.9rem;
       font-weight: 300;
       color: var(--text);
@@ -907,7 +1100,7 @@
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 6%;
-      font-family: Inter;
+      font-family: var(--font-main);
       font-size: 0.75rem;
       font-weight: 300;
       color: var(--muted);
@@ -941,6 +1134,11 @@
         gap: 1rem;
       }
 
+      .wechat-popup {
+        right: 0.8rem;
+        bottom: 0.8rem;
+      }
+
       #contact {
         padding: 8rem 6% 6rem;
       }
@@ -956,7 +1154,7 @@
   <nav id="site-nav">
     <div class="nav-inner">
       <div class="nav-brand">
-        <img src="logo.png" alt="Dragonfly Manufacturing">
+        <img src="hdlogo.jpg" alt="Dragonfly Manufacturing">
       </div>
       <input type="checkbox" id="nav-toggle" class="nav-toggle">
       <label for="nav-toggle" class="nav-toggle-label">
@@ -968,7 +1166,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#product">Product</a></li>
         <li><a href="#print">Print</a></li>
-        <li><a href="#sizes">Sizes</a></li>
+        <li><a href="#" id="wechat-toggle">WeChat QR</a></li>
         <li><a href="#contact" class="nav-enquire">Enquire</a></li>
       </ul>
     </div>
@@ -1007,9 +1205,9 @@
     <div class="about-grid">
       <div>
         <h2 class="reveal" data-delay="0.1">Crafting moments brands never forget.</h2>
-        <p class="reveal" data-delay="0.2">Dragonfly Manufacturing Ltd. is a Hong Kong-based manufacturer specializing in custom cold-activated color-changing cups. We work directly with brands, agencies, retailers, and event companies worldwide to deliver products that create genuine moments of surprise and delight.</p>
-        <p class="reveal" data-delay="0.3">From concept to finished product — we handle printing, production, and packaging under one roof. Our team in Sheung Wan, Hong Kong brings together precision manufacturing and creative flexibility, so your brand gets exactly what it needs.</p>
-        <p class="reveal" data-delay="0.4">Whether you need 500 cups for a product launch or 50,000 for a global campaign — we scale with you.</p>
+        <p class="reveal" data-delay="0.2">Dragonfly Manufacturing Ltd. is a Hong Kong based team focused on one thing: making cold activated cups that feel sharp, useful, and memorable. We work directly with brands, agencies, retailers, and event teams that want the product to land well, not just look good on paper.</p>
+        <p class="reveal" data-delay="0.3">From print setup to packing, we keep the work under one roof so the details stay consistent and the process stays straightforward. Our facility in Sheung Wan handles both careful finishing and high speed production runs — without compromising on quality.</p>
+        <p class="reveal" data-delay="0.4">Need a short launch run or a larger campaign order? We build around the brief, the timeline, and the volume.</p>
       </div>
       <div class="stats-grid reveal" data-delay="0.2">
         <div class="stat-block">
@@ -1017,12 +1215,13 @@
           <div class="stat-label">Brands Served</div>
         </div>
         <div class="stat-block">
-          <div class="stat-number" data-target="3">0</div>
-          <div class="stat-label">Print Methods</div>
+          <div class="stat-number" data-target="15">0</div>
+          <div class="stat-label">Years Expierience
+          </div>
         </div>
         <div class="stat-block">
-          <div class="stat-number" data-target="15" data-suffix="+ yrs">0</div>
-          <div class="stat-label">Experience</div>
+          <div class="stat-number" data-target="12" data-suffix="+">0</div>
+          <div class="stat-label">Cup Sizes</div>
         </div>
         <div class="stat-block">
           <div class="stat-number">HK</div>
@@ -1030,6 +1229,437 @@
         </div>
       </div>
     </div>
+    <!-- =========================================
+     CHUPA BEFORE / AFTER SECTION
+========================================= -->
+
+<section class="ba-section">
+
+  <div class="ba-container">
+
+    <!-- LEFT -->
+    <div class="compare-wrapper">
+
+      <div id="comparison">
+
+        <!-- AFTER IMAGE -->
+        <figure></figure>
+
+        <!-- BEFORE IMAGE -->
+        <div id="divisor"></div>
+
+        <!-- HANDLE -->
+        <div id="handle"></div>
+
+        <!-- RANGE -->
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          id="slider"
+          oninput="moveDivisor()"
+        >
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <!-- RIGHT -->
+<!-- RIGHT -->
+<div class="ba-content">
+
+  <span class="ba-tag">
+    Color-Changing Innovation
+  </span>
+
+  <h2>
+    Cups That Reveal <br>
+    <span>Your Brand With Cold</span>
+  </h2>
+
+  <p>
+    Our cold-activated color-changing cups transform with every chilled pour, creating an interactive
+    experience customers instantly notice and remember. As the temperature drops, hidden artwork,
+    vibrant colours, and branded elements come to life — turning an ordinary cup into a powerful
+    marketing moment for events, retail campaigns, and promotional launches.
+  </p>
+
+  <div class="ba-cards">
+
+    <div class="ba-card">
+      <h4>Thermochromic Reveal</h4>
+      <p>
+        Special temperature-sensitive printing technology activates when cold liquid is added,
+        revealing stunning graphics and dynamic brand visuals in seconds.
+      </p>
+    </div>
+
+    <div class="ba-card">
+      <h4>Designed For Brand Impact</h4>
+      <p>
+        Perfect for beverage brands, festivals, cafés, and promotional campaigns looking to create
+        memorable customer interaction through innovative packaging design.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+  </div>
+
+</section>
+
+<style>
+
+/* =========================
+   ROOT COLORS
+========================= */
+
+:root {
+  --bg:       #070809;
+  --surface:  #0d1117;
+  --lift:     #131920;
+  --border:   rgba(255,255,255,0.06);
+  --border-h: rgba(90,180,224,0.25);
+  --text:     #ffffff;
+  --muted:    rgba(255,255,255,0.72);
+  --accent:   #ca2b23;
+  --accent-d: rgba(90,180,224,0.08);
+  --white:    #ffffff;
+  --font-main:'Sora', sans-serif;
+}
+
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.ba-section{
+  width:100%;
+  background:var(--bg);
+  padding:110px 6%;
+  overflow:hidden;
+  font-family:var(--font-main);
+}
+
+.ba-container{
+  max-width:1400px;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:90px;
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.compare-wrapper{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+
+#comparison{
+  width:100%;
+  max-width:520px;
+
+  aspect-ratio: 9 / 16;
+
+  position:relative;
+  overflow:hidden;
+
+  border-radius:32px;
+
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  box-shadow:
+  0 20px 60px rgba(0,0,0,0.45);
+}
+
+/* AFTER IMAGE */
+
+#comparison figure{
+  position:absolute;
+  inset:0;
+
+  background-image:url('chupa after.png');
+
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+}
+
+/* BEFORE IMAGE */
+
+#divisor{
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:50%;
+  height:100%;
+
+  overflow:hidden;
+
+  background-image:url('chupa before.png');
+
+  background-repeat:no-repeat;
+  background-position:left center;
+  background-size:cover;
+
+  border-right:2px solid rgba(255,255,255,0.9);
+}
+
+/* HANDLE */
+
+#handle{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%,-50%);
+
+  width:64px;
+  height:64px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,0.15);
+
+  z-index:10;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* HANDLE ICON */
+
+#handle::before{
+  content:'⇆';
+
+  font-size:24px;
+  color:var(--white);
+  font-weight:700;
+}
+
+/* CENTER LINE */
+
+#handle::after{
+  content:'';
+
+  position:absolute;
+
+  top:-2000px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:2px;
+  height:4000px;
+
+  background:rgba(255,255,255,0.9);
+}
+
+/* RANGE */
+
+#slider{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  opacity:0;
+
+  cursor:ew-resize;
+
+  z-index:20;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.ba-content{
+  flex:1;
+  color:var(--text);
+}
+
+.ba-tag{
+  display:inline-block;
+
+  padding:12px 20px;
+
+  border-radius:999px;
+
+  background:var(--accent-d);
+
+  border:1px solid var(--border-h);
+
+  margin-bottom:24px;
+
+  color:var(--white);
+
+  font-size:14px;
+  letter-spacing:0.5px;
+}
+
+.ba-content h2{
+  font-size:58px;
+  line-height:1.05;
+  margin-bottom:26px;
+  font-weight:700;
+}
+
+.ba-content h2 span{
+  color:var(--accent);
+}
+
+.ba-content p{
+  font-size:18px;
+  line-height:1.9;
+  color:var(--muted);
+
+  margin-bottom:42px;
+
+  max-width:560px;
+}
+
+/* CARDS */
+
+.ba-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.ba-card{
+  padding:28px;
+
+  border-radius:24px;
+
+  background:var(--lift);
+
+  border:1px solid var(--border);
+
+  transition:0.35s ease;
+}
+
+.ba-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--border-h);
+}
+
+.ba-card h4{
+  margin-bottom:12px;
+  font-size:21px;
+  color:var(--white);
+}
+
+.ba-card p{
+  margin:0;
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:991px){
+
+  .ba-container{
+    flex-direction:column;
+    gap:60px;
+  }
+
+  .ba-content{
+    text-align:center;
+  }
+
+  .ba-content p{
+    margin:auto auto 42px;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .ba-section{
+    padding:80px 20px;
+  }
+
+  #comparison{
+    max-width:100%;
+  }
+
+  .ba-content h2{
+    font-size:40px;
+  }
+
+  .ba-cards{
+    grid-template-columns:1fr;
+  }
+
+  #handle{
+    width:56px;
+    height:56px;
+  }
+
+}
+
+</style>
+
+<script>
+
+var divisor = document.getElementById("divisor"),
+    handle = document.getElementById("handle"),
+    slider = document.getElementById("slider");
+
+function moveDivisor() {
+
+  handle.style.left = slider.value + "%";
+  divisor.style.width = slider.value + "%";
+
+}
+
+window.onload = function () {
+
+  moveDivisor();
+
+};
+
+</script>
+
+</script>
+    
   </section>
 
   <!-- PRODUCT SECTION -->
@@ -1102,60 +1732,6 @@
     </div>
   </section>
 
-  <!-- SIZES SECTION -->
-  <section id="sizes">
-    <p class="section-label reveal">— Sizes</p>
-    <h2 class="reveal" data-delay="0.1">Every format, fully yours.</h2>
-
-    <div class="cups-row">
-      <div class="cup-item reveal" data-delay="0.1">
-        <svg class="cup-svg" viewBox="0 0 80 100" role="img" aria-label="XS cup">
-          <path d="M25 10 L28 95 L52 95 L55 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
-          <path d="M25 10 L55 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        </svg>
-        <div class="cup-label">XS</div>
-      </div>
-      <div class="cup-item reveal" data-delay="0.15">
-        <svg class="cup-svg" viewBox="0 0 80 120" role="img" aria-label="S cup">
-          <path d="M23 10 L27 110 L53 110 L57 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
-          <path d="M23 10 L57 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        </svg>
-        <div class="cup-label">S</div>
-      </div>
-      <div class="cup-item reveal" data-delay="0.2">
-        <svg class="cup-svg" viewBox="0 0 80 140" role="img" aria-label="M cup">
-          <path d="M21 10 L26 130 L54 130 L59 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
-          <path d="M21 10 L59 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        </svg>
-        <div class="cup-label">M</div>
-      </div>
-      <div class="cup-item reveal" data-delay="0.25">
-        <svg class="cup-svg" viewBox="0 0 80 160" role="img" aria-label="L cup">
-          <path d="M19 10 L25 150 L55 150 L61 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
-          <path d="M19 10 L61 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        </svg>
-        <div class="cup-label">L</div>
-      </div>
-      <div class="cup-item reveal" data-delay="0.3">
-        <svg class="cup-svg" viewBox="0 0 80 180" role="img" aria-label="XL cup">
-          <path d="M17 10 L24 170 L56 170 L63 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2"/>
-          <path d="M17 10 L63 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        </svg>
-        <div class="cup-label">XL</div>
-      </div>
-      <div class="cup-item reveal" data-delay="0.35">
-        <svg class="cup-svg" viewBox="0 0 80 180" role="img" aria-label="Custom cup">
-          <path d="M17 10 L24 170 L56 170 L63 10 Z" fill="rgba(90,180,224,0.08)" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="4 2"/>
-          <path d="M17 10 L63 10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-          <text x="40" y="92" text-anchor="middle" font-size="24" fill="var(--accent)" font-family="Cormorant" opacity="0.4">?</text>
-        </svg>
-        <div class="cup-label">Custom</div>
-      </div>
-    </div>
-
-    <p class="sizes-note reveal" data-delay="0.4">Custom sizes and configurations available on request. Lead times vary by volume and seasonality.</p>
-  </section>
-
   <!-- CONTACT SECTION -->
   <section id="contact">
     <p class="section-label reveal">— Get In Touch</p>
@@ -1168,48 +1744,52 @@
       </a>
     </div>
 
-    <div class="info-grid reveal" data-delay="0.4">
-      <div>
-        <div class="info-label">Email</div>
-        <div class="info-value">
-          <a href="mailto:sales1@dragonfly-manufacturing.com">sales1@dragonfly-manufacturing.com</a>
-        </div>
-      </div>
-      <div>
-        <div class="info-label">Address</div>
-        <div class="info-value">Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</div>
-      </div>
-      <div>
-        <div class="info-label">Catalog</div>
-        <div class="info-value">
-          <a href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">2026 Catalog →</a>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <p>© 2026 Dragonfly Manufacturing Ltd.</p>
-      <p><a href="https://www.dragonfly-manufacturing.com" target="_blank" rel="noopener">www.dragonfly-manufacturing.com</a></p>
+    <div class="footer-inner" style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center; align-items: center;">
+      <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Email:</strong> <a href="mailto:sales1@dragonfly-manufacturing.com">sales1@dragonfly-manufacturing.com</a></span>
+      <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Address:</strong> Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</span>
+      <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Catalog:</strong> <a href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">2026 Catalog →</a></span>
     </div>
   </footer>
+  <button
+  class="wechat-trigger"
+  onclick="toggleWechatPopup()"
+  style="
+    background:none;
+    border:none;
+    color:var(--muted);
+    cursor:pointer;
+    font-family:inherit;
+    font-size:inherit;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    transition:color 0.3s ease;
+  "
+>
+  <strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">
+    Connect:
+  </strong>
+  WeChat QR
+</button>
+
+  <div class="wechat-popup" id="wechat-popup" aria-hidden="true">
+    <img src="we chat.png" alt="WeChat QR code">
+    <button class="wechat-popup-close" id="wechat-popup-close" type="button">Close</button>
+  </div>
 
   <script>
     // ============================================
     // CUSTOM CURSOR
     // ============================================
     const cursor = document.getElementById('cursor');
-    let cursorX = 0;
-    let cursorY = 0;
-    let targetX = 0;
-    let targetY = 0;
 
     if (window.innerWidth > 768) {
       document.addEventListener('mousemove', (e) => {
-        targetX = e.clientX;
-        targetY = e.clientY;
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
       });
 
       document.addEventListener('mousedown', () => {
@@ -1235,14 +1815,8 @@
         });
       });
 
-      // Smooth cursor follow (lerp)
-      function updateCursor() {
-        cursorX += (targetX - cursorX) * 0.2;
-        cursorY += (targetY - cursorY) * 0.2;
-        cursor.style.transform = `translate(${cursorX - 5}px, ${cursorY - 5}px)`;
-        requestAnimationFrame(updateCursor);
-      }
-      updateCursor();
+      cursor.style.left = '0px';
+      cursor.style.top = '0px';
     }
 
     // ============================================
@@ -1261,6 +1835,9 @@
     const navToggle = document.getElementById('nav-toggle');
     const navLinks = document.querySelectorAll('.nav-links a');
     const siteNav = document.getElementById('site-nav');
+    const wechatToggle = document.getElementById('wechat-toggle');
+    const wechatPopup = document.getElementById('wechat-popup');
+    const wechatPopupClose = document.getElementById('wechat-popup-close');
 
     // ensure closed on load
     navToggle.checked = false;
@@ -1305,6 +1882,46 @@
         }
       });
     });
+
+    function toggleWechatPopup(forceOpen) {
+      const openState = typeof forceOpen === 'boolean'
+        ? forceOpen
+        : !wechatPopup.classList.contains('is-open');
+      wechatPopup.classList.toggle('is-open', openState);
+      wechatPopup.setAttribute('aria-hidden', String(!openState));
+    }
+
+    wechatToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      toggleWechatPopup();
+    });
+
+    wechatPopupClose.addEventListener('click', () => {
+      toggleWechatPopup(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        toggleWechatPopup(false);
+      }
+    });
+
+  document.addEventListener('click', (event) => {
+  if (!wechatPopup.classList.contains('is-open')) return;
+
+  const target = event.target;
+
+  // prevent closing when clicking popup or ANY wechat trigger
+  if (
+    target.closest('#wechat-popup') ||
+    target.closest('#wechat-toggle') ||
+    target.closest('.wechat-trigger')
+  ) {
+    return;
+  }
+
+  toggleWechatPopup(false);
+});
 
     // outside click/touch should close the menu
     function handleOutsideInteraction(event) {
@@ -1393,7 +2010,31 @@
     document.querySelectorAll('.stat-number').forEach((stat) => {
       statsObserver.observe(stat);
     });
+
+    // ============================================
+    // BEFORE / AFTER SLIDER
+    // ============================================
+    const compareFrame = document.getElementById('compare-frame');
+    const compareRange = document.getElementById('compare-range');
+    const compareHandle = document.getElementById('compare-handle');
+
+    function setComparePosition(value) {
+      const normalized = Math.max(0, Math.min(100, value));
+      compareFrame.style.setProperty('--compare-pos', `${normalized}%`);
+      compareRange.value = String(normalized);
+    }
+
+    setComparePosition(Number(compareRange.value || 50));
+
+    compareRange.addEventListener('input', () => {
+      setComparePosition(Number(compareRange.value));
+    });
+
+    compareHandle.addEventListener('click', () => {
+      compareRange.focus();
+    });
   </script>
 
 </body>
 </html>
+
