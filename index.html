@@ -1371,6 +1371,109 @@
   justify-content:center;
   gap:90px;
 }
+@media (max-width: 768px) {
+
+  /* BEFORE / AFTER SECTION */
+  .ba-section{
+    padding: 70px 20px;
+    overflow: visible;
+  }
+
+  .ba-container{
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .compare-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #comparison{
+    width: 100%;
+    max-width: 360px;
+    height: 520px;
+    min-height: 520px;
+    aspect-ratio: unset;
+    overflow: hidden;
+    border-radius: 24px;
+    position: relative;
+  }
+
+  /* IMPORTANT */
+  #comparison figure,
+  #divisor{
+    background-size: contain !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  #divisor{
+    width: 50%;
+  }
+
+  #handle{
+    width: 54px;
+    height: 54px;
+  }
+
+  #handle::before{
+    font-size: 20px;
+  }
+
+  .ba-content{
+    width: 100%;
+    text-align: center;
+  }
+
+  .ba-content h2{
+    font-size: 34px;
+    line-height: 1.15;
+  }
+
+  .ba-content p{
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .ba-cards{
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ba-card{
+    padding: 22px;
+  }
+
+  /* WECHAT QR FIX */
+  .wechat-popup{
+    width: 180px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 9999;
+    padding: 10px;
+  }
+
+  .wechat-popup img{
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .wechat-popup-close{
+    font-size: 11px;
+    padding: 10px;
+  }
+
+  /* Prevent footer overlap */
+  footer{
+    padding-bottom: 100px;
+  }
+
+}
 
 /* =========================
    LEFT SIDE
@@ -1614,34 +1717,6 @@
 
   .ba-content p{
     margin:auto auto 42px;
-  }
-
-}
-
-@media(max-width:768px){
-
-  .ba-section{
-    padding:80px 20px;
-    display: block; /* Ensure it overrides any flex issues on mobile */
-  }
-
-  #comparison{
-    max-width:100%;
-    min-height: 450px; /* Force visibility even if aspect ratio fails */
-    margin: 0 auto;
-  }
-
-  .ba-content h2{
-    font-size:40px;
-  }
-
-  .ba-cards{
-    grid-template-columns:1fr;
-  }
-
-  #handle{
-    width:56px;
-    height:56px;
   }
 
 }
