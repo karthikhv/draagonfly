@@ -128,11 +128,15 @@
       gap: 0.8rem;
       white-space: nowrap;
       flex-shrink: 0;
+      position: relative;
+      z-index: 200; /* Ensure logo is above mobile menu */
     }
 
     .nav-brand img {
       height: 28px;
       width: auto;
+      max-width: 200px;
+      object-fit: contain;
     }
 
     .nav-brand span {
@@ -1110,8 +1114,11 @@
       max-width: 1400px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
-      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      text-align: center;
     }
 
     .footer-inner a {
@@ -1131,12 +1138,14 @@
 
       .footer-inner {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        font-size: 0.95rem; /* Better tap targets and readability on mobile */
       }
 
       .wechat-popup {
         right: 0.8rem;
         bottom: 0.8rem;
+        z-index: 220; /* Keep it high enough above footer elements */
       }
 
       #contact {
@@ -1614,10 +1623,13 @@
 
   .ba-section{
     padding:80px 20px;
+    display: block; /* Ensure it overrides any flex issues on mobile */
   }
 
   #comparison{
     max-width:100%;
+    min-height: 450px; /* Force visibility even if aspect ratio fails */
+    margin: 0 auto;
   }
 
   .ba-content h2{
@@ -1748,32 +1760,32 @@ window.onload = function () {
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner" style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center; align-items: center;">
+    <div class="footer-inner">
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Email:</strong> <a href="mailto:sales1@dragonfly-manufacturing.com">sales1@dragonfly-manufacturing.com</a></span>
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Address:</strong> Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</span>
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Catalog:</strong> <a href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">2026 Catalog →</a></span>
+      <button
+        class="wechat-trigger"
+        onclick="toggleWechatPopup()"
+        style="
+          background:none;
+          border:none;
+          color:var(--muted);
+          cursor:pointer;
+          font-family:inherit;
+          font-size:inherit;
+          text-transform:uppercase;
+          letter-spacing:0.1em;
+          transition:color 0.3s ease;
+        "
+      >
+        <strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">
+          Connect:
+        </strong>
+        WeChat QR
+      </button>
     </div>
   </footer>
-  <button
-  class="wechat-trigger"
-  onclick="toggleWechatPopup()"
-  style="
-    background:none;
-    border:none;
-    color:var(--muted);
-    cursor:pointer;
-    font-family:inherit;
-    font-size:inherit;
-    text-transform:uppercase;
-    letter-spacing:0.1em;
-    transition:color 0.3s ease;
-  "
->
-  <strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">
-    Connect:
-  </strong>
-  WeChat QR
-</button>
 
   <div class="wechat-popup" id="wechat-popup" aria-hidden="true">
     <img src="we chat.png" alt="WeChat QR code">
