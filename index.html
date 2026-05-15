@@ -734,6 +734,7 @@
       background-size: 100% 200%;
       background-position: top;
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
       -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
       filter: drop-shadow(0 0 0 transparent);
@@ -754,6 +755,7 @@
       background-size: 100% 200%;
       background-position: top;
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
       -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
       filter: drop-shadow(0 0 0 transparent);
@@ -1039,7 +1041,7 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.4);
       padding: 0.75rem;
       z-index: 220;
-      opacity: 1;
+      opacity: 0;
       visibility: hidden;
       transform: translateY(10px);
       transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
@@ -1397,7 +1399,7 @@
 
 .ba-section{
   width:100%;
-  background:var(--);
+  background: var(--bg);
   padding:110px 6%;
   overflow:hidden;
   font-family:var(--font-main);
@@ -1710,8 +1712,6 @@ window.onload = function () {
 
 </script>
 
-</script>
-    
   </section>
 
   <!-- PRODUCT SECTION -->
@@ -1797,8 +1797,7 @@ window.onload = function () {
         Send an Enquiry →
       </a>
     </div>
-
-
+  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -1926,9 +1925,6 @@ window.onload = function () {
     }
 
     // Wait for DOM ready or execute inline
-    if (window.innerWidth > 768) {
-      toggleWechatPopup(true);
-    }
 
     wechatToggle.addEventListener('click', (event) => {
       event.preventDefault();
@@ -1945,22 +1941,7 @@ window.onload = function () {
       }
     });
 
-  document.addEventListener('click', (event) => {
-  if (!wechatPopup.classList.contains('is-open')) return;
-
-  const target = event.target;
-
-  // prevent closing when clicking popup or ANY wechat trigger
-  if (
-    target.closest('#wechat-popup') ||
-    target.closest('#wechat-toggle') ||
-    target.closest('.wechat-trigger')
-  ) {
-    return;
-  }
-
-  toggleWechatPopup(false);
-});
+  
 
     // outside click/touch should close the menu
     function handleOutsideInteraction(event) {
