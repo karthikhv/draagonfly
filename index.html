@@ -133,7 +133,7 @@
     }
 
     .nav-brand img {
-      height: 28px;
+      height: 68px;
       width: auto;
       max-width: 200px;
       object-fit: contain;
@@ -727,6 +727,46 @@
       background: var(--bg);
     }
 
+    .cold-water-text {
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(to top, #5ab4e0 50%, transparent 50%);
+      background-size: 100% 200%;
+      background-position: top;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+      filter: drop-shadow(0 0 0 transparent);
+      transition: background-position 2s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease, -webkit-text-stroke 2s ease;
+      transition-delay: 0.6s; /* Wait for section fade-in */
+    }
+
+    h2.reveal.visible .cold-water-text {
+      background-position: bottom;
+      -webkit-text-stroke: 1px transparent;
+      filter: drop-shadow(0 0 15px rgba(90, 180, 224, 0.4));
+    }
+
+    .hot-reveal-text {
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(to top, #ca2b23 50%, transparent 50%);
+      background-size: 100% 200%;
+      background-position: top;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+      filter: drop-shadow(0 0 0 transparent);
+      transition: background-position 2s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease, -webkit-text-stroke 2s ease;
+      transition-delay: 0.6s;
+    }
+
+    h2.reveal.visible .hot-reveal-text {
+      background-position: bottom;
+      -webkit-text-stroke: 1px transparent;
+      filter: drop-shadow(0 0 15px rgba(202, 43, 35, 0.4));
+    }
+
     .product-video {
       width: 100%;
       max-height: 70vh;
@@ -999,7 +1039,7 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.4);
       padding: 0.75rem;
       z-index: 220;
-      opacity: 0;
+      opacity: 1;
       visibility: hidden;
       transform: translateY(10px);
       transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
@@ -1163,7 +1203,7 @@
   <nav id="site-nav">
     <div class="nav-inner">
       <div class="nav-brand">
-        <img src="hdlogo.jpg" alt="Dragonfly Manufacturing">
+        <img src="logo.png" alt="Dragonfly Manufacturing">
       </div>
       <input type="checkbox" id="nav-toggle" class="nav-toggle">
       <label for="nav-toggle" class="nav-toggle-label">
@@ -1677,7 +1717,7 @@ window.onload = function () {
   <!-- PRODUCT SECTION -->
   <section id="product">
     <p class="section-label reveal">— The Product</p>
-    <h2 class="reveal" data-delay="0.1">A hidden design, revealed by cold.</h2>
+    <h2 class="reveal" data-delay="0.1">A hidden design,<br><span class="cold-water-text">revealed by cold.</span></h2>
     
     <video class="product-video reveal" data-delay="0.2" autoplay muted loop playsinline preload="metadata">
       <source src="video2.mp4" type="video/mp4">
@@ -1705,7 +1745,7 @@ window.onload = function () {
   <!-- PRINT METHODS SECTION -->
   <section id="print">
     <p class="section-label reveal">— Print Methods</p>
-    <h2 class="reveal" data-delay="0.1">Three ways to tell your story.</h2>
+    <h2 class="reveal" data-delay="0.1">Three ways to <br><span class="hot-reveal-text">tell your story.</span></h2>
 
     <div class="methods-grid">
       <div class="method-card reveal" data-delay="0.1">
@@ -1717,6 +1757,7 @@ window.onload = function () {
           <span class="tag">Full Colour</span>
           <span class="tag">Photo Quality</span>
           <span class="tag">Complex Art</span>
+          <span class="tag">Durable</span>
         </div>
       </div>
       <div class="method-card reveal" data-delay="0.2">
@@ -1738,6 +1779,7 @@ window.onload = function () {
         <div class="tags">
           <span class="tag">Precise</span>
           <span class="tag">Minimal</span>
+          <span class="tag">Durable</span>
           <span class="tag">Cost Efficient</span>
         </div>
       </div>
@@ -1764,26 +1806,6 @@ window.onload = function () {
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Email:</strong> <a href="mailto:sales1@dragonfly-manufacturing.com">sales1@dragonfly-manufacturing.com</a></span>
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Address:</strong> Unit C, 8/F, Eton Building, 288 Des Voeux Road, Sheung Wan, Hong Kong</span>
       <span class="footer-link"><strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">Catalog:</strong> <a href="https://www.dragonfly-manufacturing.com/2026-Catalog-Dragonfly.pdf" target="_blank" rel="noopener">2026 Catalog →</a></span>
-      <button
-        class="wechat-trigger"
-        onclick="toggleWechatPopup()"
-        style="
-          background:none;
-          border:none;
-          color:var(--muted);
-          cursor:pointer;
-          font-family:inherit;
-          font-size:inherit;
-          text-transform:uppercase;
-          letter-spacing:0.1em;
-          transition:color 0.3s ease;
-        "
-      >
-        <strong style="color: var(--accent); font-weight: 400; margin-right: 5px;">
-          Connect:
-        </strong>
-        WeChat QR
-      </button>
     </div>
   </footer>
 
@@ -1901,6 +1923,11 @@ window.onload = function () {
         : !wechatPopup.classList.contains('is-open');
       wechatPopup.classList.toggle('is-open', openState);
       wechatPopup.setAttribute('aria-hidden', String(!openState));
+    }
+
+    // Wait for DOM ready or execute inline
+    if (window.innerWidth > 768) {
+      toggleWechatPopup(true);
     }
 
     wechatToggle.addEventListener('click', (event) => {
