@@ -741,6 +741,25 @@
       transition: background-position 2s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease, -webkit-text-stroke 2s ease;
       transition-delay: 0.6s; /* Wait for section fade-in */
     }
+    .cold-water-text1 {
+      position: relative;
+      display: inline-block;
+      background: linear-gradient(to top, #ca2b23 50%, transparent 50%);
+      background-size: 100% 200%;
+      background-position: top;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+      filter: drop-shadow(0 0 0 transparent);
+      transition: background-position 2s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease, -webkit-text-stroke 2s ease;
+      transition-delay: 0.6s; /* Wait for section fade-in */
+    }
+    h2.reveal.visible .cold-water-text1 {
+      background-position: bottom;
+      -webkit-text-stroke: 1px transparent;
+      filter: drop-shadow(0 0 15px rgba(202, 43, 35, 0.4));
+    }
 
     h2.reveal.visible .cold-water-text {
       background-position: bottom;
@@ -880,6 +899,10 @@
         border-bottom: none;
       }
     }
+
+    /* AI CUP DESIGN PREVIEW SECTION removed */
+
+    /* AI-related media queries removed */
 
     /* PRINT METHODS SECTION */
     #print {
@@ -1216,7 +1239,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#product">Product</a></li>
-        <li><a href="#print">Print</a></li>
+        <li><a href="#print">Gallery</a></li>
         <li><a href="#" id="wechat-toggle">WeChat QR</a></li>
         <li><a href="#contact" class="nav-enquire">Enquire</a></li>
       </ul>
@@ -1226,14 +1249,14 @@
   <!-- HERO SECTION -->
   <section id="hero">
     <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="video.mp4" type="video/mp4">
+      <source src="video3.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
       <div class="hero-eyebrow reveal">Hong Kong  ·  Est. 2017</div>
-      <h1 class="hero-title reveal" data-delay="0.1">Pour. <span class="accent">Reveal.</span> Amaze.</h1>
-      <p class="hero-subtitle reveal" data-delay="0.2">Custom cold-activated color-changing cups — your brand revealed with every pour.</p>
+      <h1 class="hero-title reveal" data-delay="0.1">Dragonfly Manufacturing</h1>
+      <p class="hero-subtitle reveal" data-delay="0.2">Custom manufacturing for color-changing cups, promotional products, and branded merchandise.</p>
       <div class="hero-buttons reveal" data-delay="0.3">
         <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Enquiry%20—%20Dragonfly%20Manufacturing">
           Request a Quote
@@ -1252,13 +1275,11 @@
 
   <!-- ABOUT SECTION -->
   <section id="about">
-    <p class="section-label reveal">— Who We Are</p>
+    <p class="section-label reveal">— About Dragonfly</p>
     <div class="about-grid">
       <div>
-        <h2 class="reveal" data-delay="0.1">Crafting moments brands never forget.</h2>
-        <p class="reveal" data-delay="0.2">Dragonfly Manufacturing Ltd. is a Hong Kong based team focused on one thing: making cold activated cups that feel sharp, useful, and memorable. We work directly with brands, agencies, retailers, and event teams that want the product to land well, not just look good on paper.</p>
-        <p class="reveal" data-delay="0.3">From print setup to packing, we keep the work under one roof so the details stay consistent and the process stays straightforward. Our facility in Sheung Wan handles both careful finishing and high speed production runs — without compromising on quality.</p>
-        <p class="reveal" data-delay="0.4">Need a short launch run or a larger campaign order? We build around the brief, the timeline, and the volume.</p>
+        <h2 class="reveal" data-delay="0.1">Dragonfly Manufacturing</h2>
+        <p class="reveal" data-delay="0.2">Dragonfly Manufacturing Ltd. is a Hong Kong based manufacturer specializing in color-changing cups, promotional products, and OEM production for global brands, retailers, and events.</p>
       </div>
       <div class="stats-grid reveal" data-delay="0.2">
         <div class="stat-block">
@@ -1267,7 +1288,7 @@
         </div>
         <div class="stat-block">
           <div class="stat-number" data-target="15">0</div>
-          <div class="stat-label">Years Expierience
+            <div class="stat-label">Years Experience
           </div>
         </div>
         <div class="stat-block">
@@ -1280,89 +1301,7 @@
         </div>
       </div>
     </div>
-    <!-- =========================================
-     CHUPA BEFORE / AFTER SECTION
-========================================= -->
-
-<section class="ba-section">
-
-  <div class="ba-container">
-
-    <!-- LEFT -->
-    <div class="compare-wrapper">
-
-      <div id="comparison">
-
-        <!-- AFTER IMAGE -->
-        <figure></figure>
-
-        <!-- BEFORE IMAGE -->
-        <div id="divisor"></div>
-
-        <!-- HANDLE -->
-        <div id="handle"></div>
-
-        <!-- RANGE -->
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          id="slider"
-          oninput="moveDivisor()"
-        >
-
-      </div>
-
-    </div>
-
-    <!-- RIGHT -->
-    <!-- RIGHT -->
-<!-- RIGHT -->
-<div class="ba-content">
-
-  <span class="ba-tag">
-    Color-Changing Innovation
-  </span>
-
-  <h2>
-    Cups That Reveal <br>
-    <span>Your Brand With Cold</span>
-  </h2>
-
-  <p>
-    Our cold-activated color-changing cups transform with every chilled pour, creating an interactive
-    experience customers instantly notice and remember. As the temperature drops, hidden artwork,
-    vibrant colours, and branded elements come to life — turning an ordinary cup into a powerful
-    marketing moment for events, retail campaigns, and promotional launches.
-  </p>
-
-  <div class="ba-cards">
-
-    <div class="ba-card">
-      <h4>Thermochromic Reveal</h4>
-      <p>
-        Special temperature-sensitive printing technology activates when cold liquid is added,
-        revealing stunning graphics and dynamic brand visuals in seconds.
-      </p>
-    </div>
-
-    <div class="ba-card">
-      <h4>Designed For Brand Impact</h4>
-      <p>
-        Perfect for beverage brands, festivals, cafés, and promotional campaigns looking to create
-        memorable customer interaction through innovative packaging design.
-      </p>
-    </div>
-
-  </div>
-
-</div>
-
-  </div>
-
-</section>
-
+    
 <style>
 
 /* =========================
@@ -1691,33 +1630,79 @@
 
 </style>
 
-<script>
-
-var divisor = document.getElementById("divisor"),
-    handle = document.getElementById("handle"),
-    slider = document.getElementById("slider");
-
-function moveDivisor() {
-
-  handle.style.left = slider.value + "%";
-  divisor.style.width = slider.value + "%";
-
+<style>
+/* Trade Fair showcase styles */
+.tradefair-grid{
+  display:flex;
+  gap:2.5rem;
+  align-items:flex-start;
+  margin-top:2rem;
 }
+/* make the video a fixed column (good for vertical video) */
+.tradefair-video{
+  flex:0 0 360px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.tradefair-video video{
+  width:auto;
+  height:70vh;
+  max-height:76vh;
+  object-fit:cover;
+  border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:0 18px 60px rgba(0,0,0,0.5);
+}
+/* show all images in a responsive grid — no desktop scroll */
+.polaroid-gallery{
+  flex:1;
+  display:grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap:1rem;
+  align-items:start;
+  padding:0.5rem;
+}
+.polaroid{
+  --base-rot: 0deg;
+  --anim: 0deg;
+  background:#fff;
+  padding:10px;
+  border-radius:8px;
+  box-shadow:0 18px 60px rgba(0,0,0,0.45);
+  transition:transform 0.35s ease, box-shadow 0.35s ease;
+  border:1px solid rgba(0,0,0,0.06);
+  transform-origin:center;
+  transform: rotate(calc(var(--base-rot) + var(--anim))) translateY(0);
+  animation: sway 3.8s ease-in-out infinite alternate;
+}
+.polaroid img{display:block;width:100%;height:140px;object-fit:cover;border-radius:6px}
+.polaroid:hover{animation-play-state:paused;transform:rotate(0deg) translateY(-8px) scale(1.03);box-shadow:0 28px 80px rgba(0,0,0,0.6)}
 
-window.onload = function () {
+@keyframes sway{
+  from{ --anim: -2deg; }
+  to{ --anim: 2deg; }
+}
+.trade-title{display:inline-block;transform-style:preserve-3d;perspective:800px}
+.trade-title span{display:block;transition:transform 0.5s cubic-bezier(.2,.9,.2,1),opacity 0.5s ease}
+.trade-title.in-view span{transform:translateY(0) rotateX(0);opacity:1}
+@media (max-width:991px){
+  .tradefair-grid{flex-direction:column}
+  .polaroid-gallery{grid-template-columns:repeat(2, 1fr); gap:0.75rem}
+  .polaroid img{height:120px}
+  .tradefair-video{flex:0 0 auto;margin-bottom:1rem}
+  .tradefair-video video{width:80%;height:auto;max-height:40vh}
+}
+</style>
 
-  moveDivisor();
 
-};
-
-</script>
 
   </section>
 
   <!-- PRODUCT SECTION -->
   <section id="product">
-    <p class="section-label reveal">— The Product</p>
-    <h2 class="reveal" data-delay="0.1">A hidden design,<br><span class="cold-water-text">revealed by cold.</span></h2>
+    <p class="section-label reveal">— Dragonfly Exclusive Product</p>
+    <h2 class="reveal" data-delay="0.1">Cold-Activated <span class="hot-reveal-text">Custom Cups</span></h2>
     
     <video class="product-video reveal" data-delay="0.2" autoplay muted loop playsinline preload="metadata">
       <source src="video2.mp4" type="video/mp4">
@@ -1727,74 +1712,66 @@ window.onload = function () {
       <div class="feature reveal" data-delay="0.1">
         <div class="feature-number">01</div>
         <div class="feature-title">Cold Activation</div>
-        <div class="feature-desc">Design appears as temperature shifts with cold liquid, then fades as the cup warms. A repeatable reveal with every sip.</div>
+        <div class="feature-desc">Cold-activated color change with custom branding.</div>
       </div>
       <div class="feature reveal" data-delay="0.2">
         <div class="feature-number">02</div>
         <div class="feature-title">Full Custom Print</div>
-        <div class="feature-desc">Artwork, logos, and wraps tailored to your campaign. Any color, any complexity.</div>
+        <div class="feature-desc">Full custom printing for promotional and retail use.</div>
       </div>
       <div class="feature reveal" data-delay="0.3">
         <div class="feature-number">03</div>
-        <div class="feature-title">Any Brand Any Scale</div>
-        <div class="feature-desc">From boutique drops to large-volume promotions. Handmade or high-speed production.</div>
+          <div class="feature-title">Any Scale Production</div>
+          <div class="feature-desc">OEM production for small and high-volume orders.</div>
       </div>
     </div>
   </section>
+  <!-- AI Cup Design Preview removed -->
 
   <!-- PRINT METHODS SECTION -->
   <section id="print">
-    <p class="section-label reveal">— Print Methods</p>
-    <h2 class="reveal" data-delay="0.1">Three ways to <br><span class="hot-reveal-text">tell your story.</span></h2>
+      <p class="section-label reveal">— Trade Fairs &amp; Exhibitions</p>
+      <p class="reveal" data-delay="0.15">Hong Kong Gifts &amp; Premium Fair, Mega Show, Canton Fair, and international trade exhibitions.</p>
 
-    <div class="methods-grid">
-      <div class="method-card reveal" data-delay="0.1">
-        <div class="method-number">01</div>
-        <div class="method-title">Heat Transfer</div>
-        <div class="method-divider"></div>
-        <div class="method-desc">Full-colour, photo-quality output for complex artwork, gradients, and photographic imagery.</div>
-        <div class="tags">
-          <span class="tag">Full Colour</span>
-          <span class="tag">Photo Quality</span>
-          <span class="tag">Complex Art</span>
-          <span class="tag">Durable</span>
-        </div>
+    <!-- Trade Fair Showcase: video (left) + polaroid gallery (right) -->
+    <div class="tradefair-grid reveal" data-delay="0.2">
+      <div class="tradefair-video">
+        <video controls autoplay muted loop playsinline preload="metadata">
+          <source src="trade%20fair/color%20changing%20cup.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
-      <div class="method-card reveal" data-delay="0.2">
-        <div class="method-number">02</div>
-        <div class="method-title">Silk Printing</div>
-        <div class="method-divider"></div>
-        <div class="method-desc">Solid colours that stay vivid and durable, ideal for logos and bold typography.</div>
-        <div class="tags">
-          <span class="tag">Solid Colour</span>
-          <span class="tag">Vivid</span>
-          <span class="tag">Durable</span>
-        </div>
-      </div>
-      <div class="method-card reveal" data-delay="0.3">
-        <div class="method-number">03</div>
-        <div class="method-title">Pad Printing</div>
-        <div class="method-divider"></div>
-        <div class="method-desc">Precise, minimal branding with efficient production cost and clean execution.</div>
-        <div class="tags">
-          <span class="tag">Precise</span>
-          <span class="tag">Minimal</span>
-          <span class="tag">Durable</span>
-          <span class="tag">Cost Efficient</span>
-        </div>
+
+      <div class="polaroid-gallery" id="polaroid-gallery" aria-label="Trade fair images">
+        <div class="polaroid"><img src="trade%20fair/pic1.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic2.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic3.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic4.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic5.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic7.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic8.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic9.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic10.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic11.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic13.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic14.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic15.JPG" alt=""></div>
+        <div class="polaroid"><img src="trade%20fair/pic16.JPG" alt=""></div>
       </div>
     </div>
+
+    <!-- methods-grid removed per request -->
   </section>
 
   <!-- CONTACT SECTION -->
   <section id="contact">
-    <p class="section-label reveal">— Get In Touch</p>
-    <h2 class="reveal" data-delay="0.1">Let's build something remarkable.</h2>
-    <p class="contact-sub reveal" data-delay="0.2">Tell us your concept, timeline, and quantity. We'll reply with practical guidance and a clear quotation.</p>
+    <p class="section-label reveal">— Contact Us</p>
+    <h2 class="reveal" data-delay="0.1">Contact Us</h2>
+    <p class="contact-sub reveal" data-delay="0.2">Send us your product requirements, quantities, and timeline for a quotation.</p>
     
     <div class="contact-button reveal" data-delay="0.3">
-      <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Enquiry%20—%20Dragonfly%20Manufacturing">
-        Send an Enquiry →
+      <a class="btn btn-primary" href="mailto:sales1@dragonfly-manufacturing.com?subject=Quotation%20Request">
+        Request Quote →
       </a>
     </div>
   </section>
@@ -1808,7 +1785,7 @@ window.onload = function () {
     </div>
   </footer>
 
-  <div class="wechat-popup" id="wechat-popup" aria-hidden="true">
+  <div class="wechat-popup is-open" id="wechat-popup" aria-hidden="false">
     <img src="we chat.png" alt="WeChat QR code">
     <button class="wechat-popup-close" id="wechat-popup-close" type="button">Close</button>
   </div>
@@ -1926,19 +1903,16 @@ window.onload = function () {
 
     // Wait for DOM ready or execute inline
 
+    // Keep WeChat popup always visible; prevent toggle link from hiding it.
     wechatToggle.addEventListener('click', (event) => {
       event.preventDefault();
-      toggleWechatPopup();
+      // noop: popup remains open; user should use the close button to dismiss.
     });
 
+    // Close button only: explicitly remove open state when clicked
     wechatPopupClose.addEventListener('click', () => {
-      toggleWechatPopup(false);
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        toggleWechatPopup(false);
-      }
+      wechatPopup.classList.remove('is-open');
+      wechatPopup.setAttribute('aria-hidden', 'true');
     });
 
   
@@ -2038,21 +2012,60 @@ window.onload = function () {
     const compareRange = document.getElementById('compare-range');
     const compareHandle = document.getElementById('compare-handle');
 
-    function setComparePosition(value) {
-      const normalized = Math.max(0, Math.min(100, value));
-      compareFrame.style.setProperty('--compare-pos', `${normalized}%`);
-      compareRange.value = String(normalized);
+    if (compareFrame && compareRange && compareHandle) {
+      function setComparePosition(value) {
+        const normalized = Math.max(0, Math.min(100, value));
+        compareFrame.style.setProperty('--compare-pos', `${normalized}%`);
+        compareRange.value = String(normalized);
+      }
+
+      setComparePosition(Number(compareRange.value || 50));
+
+      compareRange.addEventListener('input', () => {
+        setComparePosition(Number(compareRange.value));
+      });
+
+      compareHandle.addEventListener('click', () => {
+        compareRange.focus();
+      });
     }
 
-    setComparePosition(Number(compareRange.value || 50));
+    // ============================================
+    // TRADE FAIR: Polaroid base rotations + subtle sway
+    // ============================================
+    (function(){
+      const gallery = document.getElementById('polaroid-gallery');
+      if(!gallery) return;
 
-    compareRange.addEventListener('input', () => {
-      setComparePosition(Number(compareRange.value));
-    });
+      // apply a random base rotation via CSS variable so sway can add to it
+      function applyBaseRotations(){
+        gallery.querySelectorAll('.polaroid').forEach((p)=>{
+          const r = (Math.random() * 14 - 7).toFixed(2); // -7deg .. +7deg
+          p.style.setProperty('--base-rot', `${r}deg`);
+        });
+      }
 
-    compareHandle.addEventListener('click', () => {
-      compareRange.focus();
-    });
+      applyBaseRotations();
+      window.addEventListener('resize', applyBaseRotations);
+
+      // Hover interactions: pause animation and lift image
+      gallery.querySelectorAll('.polaroid').forEach((p)=>{
+        p.addEventListener('mouseenter', ()=>{
+          p.style.animationPlayState = 'paused';
+          p.style.transform = 'rotate(0deg) translateY(-8px) scale(1.03)';
+        });
+        p.addEventListener('mouseleave', ()=>{
+          p.style.animationPlayState = '';
+          // restore base rotation (allow CSS animation to continue)
+          const base = getComputedStyle(p).getPropertyValue('--base-rot') || '0deg';
+          p.style.transform = `rotate(${base})`;
+        });
+      });
+
+      // On small screens allow natural vertical scroll — no extra JS needed
+    })();
+
+    // PRINT TITLE reveal handled by existing IntersectionObserver for `.reveal`
   </script>
 
 </body>
